@@ -1,0 +1,53 @@
+<div class="container">
+  <form [formGroup]="requestForm" (ngSubmit)="submit()">
+    
+    <div class="col-md-6">
+        <label>Request Type</label>
+    </div>
+    <div class="col-md-6">
+    <div class="form-group">
+     
+      <select class="form-control" style="width: 130px" id="gender" formControlName="requestType">
+        <option *ngFor="let type of requestTypes" [value]="type.value">
+          {{type.display}}
+        </option>
+      </select>
+    </div>
+    </div>
+    <div class="col-md-6">
+      <label>Search Keys</label>
+      <a (click)="addSearchKey()" class="btn btn-success">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+      </a>
+      <div formArrayName="searchKeys">
+        <div *ngFor="let searchKey of requestForm.controls.searchKeys.controls; let i=index">
+
+          <input formControlName="{{i}}" />
+          <a class="btn btn-danger" *ngIf="requestForm.controls.searchKeys.controls.length > 1" (click)="removeSearchKey(i)">
+            <i class="fa fa-minus" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <label>Reference Keys</label>
+      <a (click)="addReferenceKey()" class="btn btn-success">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+      </a>
+      <div formArrayName="referenceKeys">
+        <div *ngFor="let referenceKey of requestForm.controls.referenceKeys.controls; let i=index">
+
+          <input formControlName="{{i}}" />
+          <a class="btn btn-danger" *ngIf="requestForm.controls.referenceKeys.controls.length > 1" (click)="removeReferenceKey(i)">
+            <i class="fa fa-minus" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <button class="btn btn-primary pull-right">Send Request</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,13 @@
+[
+  {
+    "requestType": "lawbank",
+    "searchKeys": ["SK1","SK2"],
+    "referenceKeys": ["RK1","RK2","RK3","RK4"],
+    "requestStatus": "Done",
+    "requester": {
+        "name":"test",
+        "email":"email"
+    },
+    "requestTime": "2017/01/01"
+  }
+]
