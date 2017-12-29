@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormArray,
+  FormControl
+} from '@angular/forms';
 
 @Component({
   selector: 'app-spider-request',
@@ -9,8 +15,10 @@ import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@ang
 export class SpiderRequestComponent implements OnInit {
   requestForm: FormGroup;
   requestTypes = [{ value: 'lawbank', display: 'Law Bank' }];
+  iSearchKey = '';
+  iReferenceKey = '';
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
     this.createRegisterForm();
@@ -28,13 +36,20 @@ export class SpiderRequestComponent implements OnInit {
       requester: ['', Validators.required],
       requestStatus: ['', Validators.required]
     });
+
+    let control = <FormArray>this.requestForm.controls['searchKeys'];
+    control.removeAt(0);
+    control = <FormArray>this.requestForm.controls['referenceKeys'];
+    control.removeAt(0);
   }
 
   addSearchKey() {
-    const control = <FormArray>this.requestForm.controls['searchKeys'];
-    control.push(new FormControl());
+    while (this.iSearchKey.trim().length > 0) {
+      const control = <FormArray>this.requestForm.controls['searchKeys'];
+      control.push(new FormControl(this.iSearchKey));
+      this.iSearchKey = '';
+    }
   }
-
 
   removeSearchKey(i: number) {
     const control = <FormArray>this.requestForm.controls['searchKeys'];
@@ -42,10 +57,13 @@ export class SpiderRequestComponent implements OnInit {
   }
 
   addReferenceKey() {
-    const control = <FormArray>this.requestForm.controls['referenceKeys'];
-    control.push(new FormControl());
-  }
+    while (this.iReferenceKey.trim().length > 0) {
+      const control = <FormArray>this.requestForm.controls['referenceKeys'];
+      control.push(new FormControl(this.iReferenceKey));
+      this.iReferenceKey = '';
+    }
 
+  }
 
   removeReferenceKey(i: number) {
     const control = <FormArray>this.requestForm.controls['referenceKeys'];

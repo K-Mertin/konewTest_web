@@ -1,4 +1,28 @@
-<p>
-  spider-history works!
-</p>
-{{demoRequest|json}}
+<div class="container">
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">History Request</div>
+  
+    <!-- Table -->
+    <table class="table table-striped  ">
+        <thead>
+            <tr>
+              <th>RequestSeq</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th>RequestType</th>
+              <th>SearchKeys</th>
+              <th>ReferenceKeys</th>
+            </tr>
+          </thead>
+          <tr *ngFor="let request of demoRequest">
+            <td></td>
+            <td>{{request.requestStatus}}</td>
+            <td>{{request.requestTime}}</td>
+            <td>{{request.requestType}}</td>
+            <td>{{request.searchKeys}}</td>
+            <td>{{request.referenceKeys}}</td>
+          </tr>
+     </table>
+  </div>
+</div>
