@@ -6,6 +6,8 @@ import {
   FormArray,
   FormControl
 } from '@angular/forms';
+import { SpiderRequest } from '../../_model/SpiderRequest';
+import { DemoServiceService } from '../../_service/demoService.service';
 
 @Component({
   selector: 'app-spider-request',
@@ -17,15 +19,22 @@ export class SpiderRequestComponent implements OnInit {
   requestTypes = [{ value: 'lawbank', display: 'Law Bank' }];
   iSearchKey = '';
   iReferenceKey = '';
+  request: SpiderRequest;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private service: DemoServiceService) { }
 
   ngOnInit() {
     this.createRegisterForm();
   }
 
   submit() {
-    console.log(this.requestForm.value);
+    this.request = Object.assign({}, this.requestForm.value);
+
+    this.service.addRequests(this.request).subscribe(() => {
+      console.log('success');
+    }, error => {
+      console.log(error);
+    });
   }
 
   createRegisterForm() {

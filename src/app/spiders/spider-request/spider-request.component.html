@@ -50,10 +50,8 @@
         </div>
       </div>
     </div>
-
-  
   </form>
   <div class="col-md-1 pull-right">
-    <button (click)="submit()" class="btn btn-primary">Send Request</button>
+    <button (click)="submit()" class="btn btn-primary" *ngIf="requestForm.value.searchKeys.length>0">Send Request</button>
   </div>
 </div>

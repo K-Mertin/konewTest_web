@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './route';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,13 +22,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SpiderRequestComponent,
     SpiderResultComponent,
     HomeComponent
-],
+  ],
   imports: [
     BrowserModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
     ReactiveFormsModule,
     FormsModule,
+    HttpClientModule
   ],
   providers: [DemoServiceService],
   bootstrap: [AppComponent]

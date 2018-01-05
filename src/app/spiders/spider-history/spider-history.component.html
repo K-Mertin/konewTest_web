@@ -7,19 +7,19 @@
     <table class="table table-striped  ">
         <thead>
             <tr>
-              <th>RequestSeq</th>
+              <th>RequestId</th>
               <th>Status</th>
               <th>Date</th>
-              <th>RequestType</th>
+              <!-- <th>RequestType</th> -->
               <th>SearchKeys</th>
               <th>ReferenceKeys</th>
             </tr>
           </thead>
           <tr *ngFor="let request of demoRequest">
-            <td></td>
-            <td>{{request.requestStatus}}</td>
-            <td>{{request.requestTime}}</td>
-            <td>{{request.requestType}}</td>
+            <td>{{request.requestId}}</td>
+            <td>{{request.status}}</td>
+            <td>{{request.createDate}}</td>
+            <!-- <td>{{request.requestType}}</td> -->
             <td>{{request.searchKeys}}</td>
             <td>{{request.referenceKeys}}</td>
           </tr>

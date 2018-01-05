@@ -14,7 +14,7 @@ export class SpiderHistoryComponent implements OnInit {
   constructor(private service: DemoServiceService) { }
 
   ngOnInit() {
-    this.service.getDemoRequest().subscribe(data => this.demoRequest = data);
+    this.service.getRequests().subscribe(data => this.demoRequest = data);
   }
 
 }

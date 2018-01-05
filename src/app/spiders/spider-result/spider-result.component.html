@@ -1,11 +1,12 @@
 <div class="container">
   <input type="text" placeholder="enter request code"> <button class="btn btn-primary" (click)="getDemo()">Query</button>
 
-    <div *ngFor="let demo of demos">
-      <h3 class="title"> {{demo.title}}</h3>
-      <span class="label label-primary" *ngFor="let searchKey of demo.searchKeys"> {{searchKey}}</span>
-      <span class="label label-success" *ngFor="let referenceKey of demo.referenceKeys"> {{referenceKey}}</span>
-      <span class="label label-default" *ngFor="let tag of demo.tags"> {{tag}}</span>
-      <div>{{demo.source}}</div>
+    <div *ngFor="let result of results">
+      <h3 class="title"> {{result.title}}</h3>
+      <span class="label label-primary" *ngFor="let searchKey of result.searchKeys"> {{searchKey}}</span>
+      <span class="label label-success" *ngFor="let referenceKey of result.referenceKeys"> {{referenceKey}}</span>
+      <span class="label label-default" *ngFor="let tag of result.tags"> {{tag}}</span>
+      <div>
+        <a href="{{result.source}}">LINK</a></div>
     </div>
   </div>
