@@ -8,6 +8,8 @@ import {
 } from '@angular/forms';
 import { SpiderRequest } from '../../_model/SpiderRequest';
 import { DemoServiceService } from '../../_service/demoService.service';
+import { AlertifyService } from '../../_service/alertify.service'
+
 
 @Component({
   selector: 'app-spider-request',
@@ -21,7 +23,7 @@ export class SpiderRequestComponent implements OnInit {
   iReferenceKey = '';
   request: SpiderRequest;
 
-  constructor(private fb: FormBuilder, private service: DemoServiceService) { }
+  constructor(private fb: FormBuilder, private alertify: AlertifyService, private service: DemoServiceService) { }
 
   ngOnInit() {
     this.createRegisterForm();
@@ -31,7 +33,9 @@ export class SpiderRequestComponent implements OnInit {
     this.request = Object.assign({}, this.requestForm.value);
 
     this.service.addRequests(this.request).subscribe(() => {
-      console.log('success');
+      this.alertify.success('requests created')
+      this.createRegisterForm()
+
     }, error => {
       console.log(error);
     });

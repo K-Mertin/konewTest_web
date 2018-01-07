@@ -10,3 +10,9 @@
         <a href="{{result.source}}">LINK</a></div>
     </div>
   </div>
+
+  <div class="text-center">
+    <pagination [boundaryLinks]="true" [totalItems]=10 [itemsPerPage]=10 
+      [(ngModel)]="pagination.currentPage" class="pagination-sm" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+      lastText="&raquo;"></pagination>
+  </div>

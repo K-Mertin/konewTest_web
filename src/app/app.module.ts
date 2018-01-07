@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { PaginationModule } from 'ngx-bootstrap';
 
 import { AppComponent } from './app.component';
 import { DemoServiceService } from './_service/demoService.service';
@@ -13,6 +14,8 @@ import { RouterModule } from '@angular/router';
 import { appRoutes } from './route';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AlertifyService } from './_service/alertify.service'
+
 
 @NgModule({
   declarations: [
@@ -29,9 +32,13 @@ import { HttpClientModule } from '@angular/common/http';
     RouterModule.forRoot(appRoutes),
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    PaginationModule.forRoot()
   ],
-  providers: [DemoServiceService],
+  providers: [
+    DemoServiceService,
+    AlertifyService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

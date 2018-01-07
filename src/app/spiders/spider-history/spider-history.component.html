@@ -16,7 +16,7 @@
             </tr>
           </thead>
           <tr *ngFor="let request of demoRequest">
-            <td>{{request.requestId}}</td>
+            <td><a [routerLink]="['../../spider/result/',request.requestId]">{{request.requestId}}</a></td>
             <td>{{request.status}}</td>
             <td>{{request.createDate}}</td>
             <!-- <td>{{request.requestType}}</td> -->

@@ -9,6 +9,7 @@ export const appRoutes: Routes = [
     { path: 'spider', component: SpiderRequestComponent },
     { path: 'spider/request', component: SpiderRequestComponent },
     { path: 'spider/result', component: SpiderResultComponent },
+    { path: 'spider/result/:requestId', component: SpiderResultComponent },
     { path: 'spider/history', component: SpiderHistoryComponent },
     // {
     //     path: '',

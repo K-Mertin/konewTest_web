@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DemoServiceService } from '../../_service/demoService.service';
 import { DemoModel } from '../../_model/demoModel';
 import { SpiderResult } from '../../_model/SpiderResult';
+import { Router, ActivatedRoute } from '@angular/router'
+import { Pagination } from '../../_model/pagination';
 
 @Component({
   selector: 'app-spider-result',
@@ -11,13 +13,16 @@ import { SpiderResult } from '../../_model/SpiderResult';
 export class SpiderResultComponent implements OnInit {
   inputtext: string;
   results: SpiderResult[];
+  pagination: Pagination;
 
-  constructor(private service: DemoServiceService) {}
+  constructor(private service: DemoServiceService, private route: ActivatedRoute) {}
 
   ngOnInit() {
+    let requestId = this.route.snapshot.paramMap.get('requestId');
+    this.service.getRequestResult(requestId).subscribe(data => (this.results = data));
   }
 
   getDemo() {
-    this.service.getRequestResult('1514966746.2558856').subscribe(data => (this.results = data));
+    console.log('no use');
   }
 }
