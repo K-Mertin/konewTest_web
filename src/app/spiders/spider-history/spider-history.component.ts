@@ -17,4 +17,8 @@ export class SpiderHistoryComponent implements OnInit {
     this.service.getRequests().subscribe(data => this.demoRequest = data);
   }
 
+  deleteRequest() {
+    console.log("delete")
+  }
+
 }

@@ -2,27 +2,56 @@
   <div class="panel panel-default">
     <!-- Default panel contents -->
     <div class="panel-heading">History Request</div>
-  
+
     <!-- Table -->
     <table class="table table-striped  ">
-        <thead>
-            <tr>
-              <th>RequestId</th>
-              <th>Status</th>
-              <th>Date</th>
-              <!-- <th>RequestType</th> -->
-              <th>SearchKeys</th>
-              <th>ReferenceKeys</th>
-            </tr>
-          </thead>
-          <tr *ngFor="let request of demoRequest">
-            <td><a [routerLink]="['../../spider/result/',request.requestId]">{{request.requestId}}</a></td>
-            <td>{{request.status}}</td>
-            <td>{{request.createDate}}</td>
-            <!-- <td>{{request.requestType}}</td> -->
-            <td>{{request.searchKeys}}</td>
-            <td>{{request.referenceKeys}}</td>
-          </tr>
-     </table>
+      <thead>
+        <tr>
+          <th>RequestId</th>
+          <th>Status</th>
+          <th>Date</th>
+          <!-- <th>RequestType</th> -->
+          <th>SearchKeys</th>
+          <th>ReferenceKeys</th>
+          <th>Operation</th>
+        </tr>
+      </thead>
+      <tr *ngFor="let request of demoRequest">
+        <td>
+          <a [routerLink]="['../../spider/result/',request.requestId]">{{request.requestId}}</a>
+        </td>
+        <td>{{request.status}}</td>
+        <td>{{request.createDate}}</td>
+        <!-- <td>{{request.requestType}}</td> -->
+        <td>{{request.searchKeys}}</td>
+        <td>{{request.referenceKeys}}</td>
+        <td>
+          <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+            <i class="fa fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="deleteModal" tabinMessagele="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModalLabel">Message</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          請確認是否刪除。(刪除後，所有查詢資料將一併刪除)
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" (click)="deleteRequest()">Confirm Deletion</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
