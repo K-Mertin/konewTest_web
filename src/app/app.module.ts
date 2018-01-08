@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { PaginationModule } from 'ngx-bootstrap';
+import { PaginationModule, ButtonsModule } from 'ngx-bootstrap';
 
 import { AppComponent } from './app.component';
 import { DemoServiceService } from './_service/demoService.service';
@@ -15,6 +15,8 @@ import { appRoutes } from './route';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AlertifyService } from './_service/alertify.service'
+import { SpiderResultResolver } from './_resolver/spider-result.resolver';
+import { RequestEditComponent } from './spiders/request-edit/request-edit.component';
 
 
 @NgModule({
@@ -24,7 +26,8 @@ import { AlertifyService } from './_service/alertify.service'
     SpiderHistoryComponent,
     SpiderRequestComponent,
     SpiderResultComponent,
-    HomeComponent
+    HomeComponent,
+    RequestEditComponent
   ],
   imports: [
     BrowserModule,
@@ -33,11 +36,13 @@ import { AlertifyService } from './_service/alertify.service'
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
+    ButtonsModule.forRoot()
   ],
   providers: [
     DemoServiceService,
-    AlertifyService
+    AlertifyService,
+    SpiderResultResolver
   ],
   bootstrap: [AppComponent]
 })

@@ -2,27 +2,45 @@
   <div class="panel panel-default">
     <!-- Default panel contents -->
     <div class="panel-heading">History Request</div>
-  
+
     <!-- Table -->
     <table class="table table-striped  ">
-        <thead>
-            <tr>
-              <th>RequestId</th>
-              <th>Status</th>
-              <th>Date</th>
-              <!-- <th>RequestType</th> -->
-              <th>SearchKeys</th>
-              <th>ReferenceKeys</th>
-            </tr>
-          </thead>
-          <tr *ngFor="let request of demoRequest">
-            <td><a [routerLink]="['../../spider/result/',request.requestId]">{{request.requestId}}</a></td>
-            <td>{{request.status}}</td>
-            <td>{{request.createDate}}</td>
-            <!-- <td>{{request.requestType}}</td> -->
-            <td>{{request.searchKeys}}</td>
-            <td>{{request.referenceKeys}}</td>
-          </tr>
-     </table>
+      <thead>
+        <tr>
+          <th>RequestId</th>
+          <th>Status</th>
+          <th>Date</th>
+          <!-- <th>RequestType</th> -->
+          <th>SearchKeys</th>
+          <th>ReferenceKeys</th>
+          <th>operation</th>
+        </tr>
+      </thead>
+      <tr *ngFor="let request of demoRequest">
+        <td>
+          {{request.requestId}}
+        </td>
+        <td>{{request.status}}</td>
+        <td>{{request.createDate}}</td>
+        <!-- <td>{{request.requestType}}</td> -->
+        <td>{{request.searchKeys}}</td>
+        <td>{{request.referenceKeys}}</td>
+        <td>
+          <a [routerLink]="['../../spider/result/',request.requestId]" class="btn btn-primary">
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </a>
+          <a href="#" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" (click)="setEditRequest(request)">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          </a>
+          <a class="btn btn-danger" href="#">
+            <i class="fa fa-trash-o" aria-hidden="true"></i>
+          </a>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade col-md-12" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <app-request-edit [requestEdit]="requestEdit"></app-request-edit>
   </div>
 </div>

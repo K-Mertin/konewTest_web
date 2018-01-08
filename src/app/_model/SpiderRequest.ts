@@ -1,6 +1,7 @@
 import { User } from './User';
 
 export interface SpiderRequest {
+    _id: string;
     requestId: string;
     requestType: string;
     searchKeys: string[];

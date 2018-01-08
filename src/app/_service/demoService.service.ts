@@ -26,13 +26,17 @@ export class DemoServiceService {
       .get<SpiderRequest[]>(this.demoRequest);
   }
 
-  getRequestResult(requestId, page?, itemsPerPage?): Observable<SpiderResult[]> {
+  getRequestResult(requestId, pageNumber?, pageSize?, userParams?: any): Observable<SpiderResult[]> {
     let params = new HttpParams();
 
-    if (page != null && itemsPerPage != null) {
-      params = params.append('pageNumber', page);
-      params = params.append('pageSize', itemsPerPage);
+    if (pageNumber != null && pageSize != null) {
+      params = params.append('pageNumber', pageNumber);
+      params = params.append('pageSize', pageSize);
     }
+
+    if (userParams != null) {
+      params = params.append('sortBy', userParams.sortBy  );
+  }
 
     return this._http.get<SpiderResult[]>(this.baseUrl + '/documents/'+ requestId, {params});
   }
@@ -43,6 +47,13 @@ export class DemoServiceService {
 
   addRequests(requests: SpiderRequest) {
     return this._http.post(this.baseUrl + '/requests', requests, {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    });
+  }
+
+  updateReqest(requests:SpiderRequest) {
+    return this._http.put(this.baseUrl + '/requests', requests,{
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
     });
