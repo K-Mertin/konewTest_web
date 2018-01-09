@@ -1,18 +1,43 @@
 <div class="container">
-  <input type="text" placeholder="enter request code"> <button class="btn btn-primary" (click)="getDemo()">Query</button>
-
-    <div *ngFor="let result of results">
-      <h3 class="title"> {{result.title}}</h3>
-      <span class="label label-primary" *ngFor="let searchKey of result.searchKeys"> {{searchKey}}</span>
-      <span class="label label-success" *ngFor="let referenceKey of result.referenceKeys"> {{referenceKey}}</span>
-      <span class="label label-default" *ngFor="let tag of result.tags"> {{tag}}</span>
-      <div>
-        <a href="{{result.source}}">LINK</a></div>
+  <!-- <input type="text" placeholder="enter request code"> <button class="btn btn-primary" (click)="loadDocuments()">Query</button> -->
+  <div class="row">
+    <div class="form-inline" novalidate>
+      <div class="form-group">
+        <label for="rowCount">每頁顯示: </label>
+        <select style="width: 130px" id="rowCount" [(ngModel)]="rowCount" (change)="loadDocuments()">
+          <option *ngFor="let row of rowList" [value]="row.value">
+            {{row.display}}
+          </option>
+        </select>
+      </div>
+      <label for="gender">，總共: </label>
+      {{pagination.totalCount}}
+      <label>筆資料 </label>
+      <!-- <button type="submit" class="btn btn-primary" style="margin-left:10px">Apply Filters</button>
+      <button type="button" class="btn btn-info" style="margin-left:10px" (click)="resetFilters()">Reset Filter</button> -->
+      <!-- HTML for ordering -->
+      <div class="pull-right">
+        <label style="margin-right: 10px">Order By: </label>
+        <div class="btn-group">
+          <button type="button" [(ngModel)]="userParams.sortBy" class="btn btn-primary" name="sortBy" btnRadio="date" (click)="loadDocuments()">裁判日</button>
+          <button type="button" [(ngModel)]="userParams.sortBy" class="btn btn-primary" name="sortBy" btnRadio="keys" (click)="loadDocuments()">符合數量</button>
+        </div>
+      </div>
     </div>
   </div>
-
-  <div class="text-center">
-    <pagination [boundaryLinks]="true" [totalItems]=10 [itemsPerPage]=10 
-      [(ngModel)]="pagination.currentPage" class="pagination-sm" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
-      lastText="&raquo;"></pagination>
+  <div *ngFor="let result of results">
+    <h3 class="title"> {{result.title}}</h3>
+    <span class="label label-primary" *ngFor="let searchKey of result.searchKeys"> {{searchKey}}</span>
+    <span class="label label-success" *ngFor="let referenceKey of result.referenceKeys"> {{referenceKey}}</span>
+    <span class="label label-default" *ngFor="let tag of result.tags"> {{tag}}</span>
+    <div>
+      <a href="{{result.source}}">LINK</a>
+    </div>
   </div>
+</div>
+
+<div class="text-center">
+  <pagination [boundaryLinks]="true" [totalItems]="pagination.totalCount" [itemsPerPage]="pagination.pageSize" [(ngModel)]="pagination.pageNumber"
+    class="pagination-sm" (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+    lastText="&raquo;"></pagination>
+</div>

@@ -10,11 +10,20 @@ import { SpiderRequest } from '../../_model/SpiderRequest';
 export class SpiderHistoryComponent implements OnInit {
 
   demoRequest: SpiderRequest[];
+  requestEdit: SpiderRequest;
 
   constructor(private service: DemoServiceService) { }
 
   ngOnInit() {
-    this.service.getRequests().subscribe(data => this.demoRequest = data);
+    this.service.getRequests().subscribe(data => {
+      console.log(data);
+      this.demoRequest = data
+      console.log(this.demoRequest)
+    });
+  }
+
+  setEditRequest(requestEdit) {
+    this.requestEdit = requestEdit;
   }
 
   deleteRequest() {

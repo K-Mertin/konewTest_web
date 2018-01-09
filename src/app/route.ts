@@ -3,13 +3,14 @@ import { HomeComponent } from './home/home.component';
 import { SpiderRequestComponent } from './spiders/spider-request/spider-request.component';
 import { SpiderResultComponent } from './spiders/spider-result/spider-result.component';
 import { SpiderHistoryComponent } from './spiders/spider-history/spider-history.component';
+import { SpiderResultResolver } from './_resolver/spider-result.resolver';
 
 export const appRoutes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'spider', component: SpiderRequestComponent },
     { path: 'spider/request', component: SpiderRequestComponent },
     { path: 'spider/result', component: SpiderResultComponent },
-    { path: 'spider/result/:requestId', component: SpiderResultComponent },
+    { path: 'spider/result/:requestId', component: SpiderResultComponent, resolve:{results: SpiderResultResolver } },
     { path: 'spider/history', component: SpiderHistoryComponent },
     // {
     //     path: '',
