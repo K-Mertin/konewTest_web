@@ -4,6 +4,7 @@ import { SpiderRequestComponent } from './spiders/spider-request/spider-request.
 import { SpiderResultComponent } from './spiders/spider-result/spider-result.component';
 import { SpiderHistoryComponent } from './spiders/spider-history/spider-history.component';
 import { SpiderResultResolver } from './_resolver/spider-result.resolver';
+import { SpiderHistoryResolver } from './_resolver/spider-history.rqsolver';
 
 export const appRoutes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -11,7 +12,7 @@ export const appRoutes: Routes = [
     { path: 'spider/request', component: SpiderRequestComponent },
     { path: 'spider/result', component: SpiderResultComponent },
     { path: 'spider/result/:requestId', component: SpiderResultComponent, resolve:{results: SpiderResultResolver } },
-    { path: 'spider/history', component: SpiderHistoryComponent },
+    { path: 'spider/history', component: SpiderHistoryComponent, resolve:{requests: SpiderHistoryResolver } },
     // {
     //     path: '',
     //     runGuardsAndResolvers: 'always',

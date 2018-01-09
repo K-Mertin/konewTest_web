@@ -1,10 +1,9 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges,ViewChild, ElementRef } from '@angular/core';
 import { SpiderRequest } from '../../_model/SpiderRequest';
 import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
 import { AlertifyService } from '../../_service/alertify.service';
 import { DemoServiceService } from '../../_service/demoService.service';
 import { Router } from '@angular/router';
-
 @Component({
   selector: 'app-request-edit',
   templateUrl: './request-edit.component.html',
@@ -12,6 +11,9 @@ import { Router } from '@angular/router';
 })
 export class RequestEditComponent implements OnInit, OnChanges {
   @Input() requestEdit: SpiderRequest
+  @Input() public loadRequest: Function 
+  @ViewChild('closeTag') closeTag: ElementRef
+
   requestForm: FormGroup;
   requestTypes = [{ value: 'lawbank', display: 'Law Bank' }];
   iSearchKey = '';
@@ -88,7 +90,7 @@ export class RequestEditComponent implements OnInit, OnChanges {
     while (this.iReferenceKey.trim().length > 0) {
       const control = <FormArray>this.requestForm.controls['referenceKeys'];
       control.push(new FormControl(this.iReferenceKey));
-      this.requestEdit['referenceKeys'].push(this.iReferenceKey)
+      this.requestEdit['referenceKeys']=control.value;
       this.iReferenceKey = '';
     }
 
@@ -97,6 +99,7 @@ export class RequestEditComponent implements OnInit, OnChanges {
   removeReferenceKey(i: number) {
     const control = <FormArray>this.requestForm.controls['referenceKeys'];
     control.removeAt(i);
+    this.requestEdit['referenceKeys']=control.value;
   }
 
   saveChange() {
@@ -107,7 +110,8 @@ export class RequestEditComponent implements OnInit, OnChanges {
     }, error => {
       console.log(error);
     },() => {
-      // this.router.navigate(['/home/']);
+      this.loadRequest();
+      this.closeTag.nativeElement.click();
     } );
 
   }

@@ -1,7 +1,7 @@
 <div class="modal-dialog" role="document">
   <div class="modal-content col-md-12">
     <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabel">Edit Request</h5>
+      <span class="modal-title" id="exampleModalLabel">New Request</span>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -18,20 +18,19 @@
         </div>
         <div class="col-md-12 searchKeys">
           <label>Search Keys</label>
+          <input type="text" [(ngModel)]="iSearchKey" [ngModelOptions]="{standalone: true}" (keyup.enter)="addSearchKey()">
+          <a (click)="addSearchKey()" class="label label-success">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </a>
         </div>
-        <!-- <input type="text" [(ngModel)]="iSearchKey" [ngModelOptions]="{standalone: true}" (keyup.enter)="addSearchKey()"> -->
-        <!-- <a (click)="addSearchKey()" class="label label-success">
-          <i class="fa fa-plus" aria-hidden="true"></i>
-        </a> -->
-
         <div formArrayName="searchKeys">
           <div *ngFor="let searchKey of requestForm.controls.searchKeys.controls; let i=index" class="col-md-6">
             <h4>
               <label class="label label-primary">{{searchKey.value}}</label>
+              <a class="label label-danger pull-right" *ngIf="requestForm.controls.searchKeys.controls.length > 0" (click)="removeSearchKey(i)">
+                <i class="fa fa-minus fa-1" aria-hidden="true"></i>
+              </a>
             </h4>
-            <!-- <a class="label label-danger pull-right" *ngIf="requestForm.controls.searchKeys.controls.length > 0" (click)="removeSearchKey(i)">
-              <i class="fa fa-minus fa-1" aria-hidden="true"></i>
-            </a> -->
           </div>
         </div>
 
@@ -58,7 +57,7 @@
     </div>
     <div class="modal-footer col-md-12">
       <button type="button" class="btn btn-secondary" data-dismiss="modal" #closeTag>Close</button>
-      <button type="button" class="btn btn-primary" (click)="saveChange()">Save changes</button>
+      <button type="button" class="btn btn-primary" (click)="createRequest()" *ngIf="requestForm.value.searchKeys.length>0">Create</button>
     </div>
   </div>
 </div>

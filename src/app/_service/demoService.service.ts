@@ -3,7 +3,7 @@ import { DemoModel } from '../_model/demoModel';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import { SpiderRequest} from '../_model/SpiderRequest';
+import { SpiderRequest } from '../_model/SpiderRequest';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { resetFakeAsyncZone } from '@angular/core/testing';
 import { SpiderResult } from '../_model/SpiderResult';
@@ -35,14 +35,25 @@ export class DemoServiceService {
     }
 
     if (userParams != null) {
-      params = params.append('sortBy', userParams.sortBy  );
+      params = params.append('sortBy', userParams.sortBy);
+      if (userParams.filters.length > 0) {
+        params = params.append('filters', userParams.filters);
+      }
+    }
+
+
+    return this._http.get<SpiderResult[]>(this.baseUrl + '/documents/' + requestId, { params });
   }
 
-    return this._http.get<SpiderResult[]>(this.baseUrl + '/documents/'+ requestId, {params});
-  }
+  getRequests(pageNumber?, pageSize?): Observable<SpiderRequest[]> {
+    let params = new HttpParams();
 
-  getRequests(): Observable<SpiderRequest[]> {
-    return this._http.get<SpiderRequest[]>(this.baseUrl + '/requests');
+    if (pageNumber != null && pageSize != null) {
+      params = params.append('pageNumber', pageNumber);
+      params = params.append('pageSize', pageSize);
+    }
+
+    return this._http.get<SpiderRequest[]>(this.baseUrl + '/requests', { params });
   }
 
   addRequests(requests: SpiderRequest) {
@@ -52,10 +63,18 @@ export class DemoServiceService {
     });
   }
 
-  updateReqest(requests:SpiderRequest) {
-    return this._http.put(this.baseUrl + '/requests', requests,{
+  updateReqest(requests: SpiderRequest) {
+    return this._http.put(this.baseUrl + '/requests', requests, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
     });
   }
+
+  removeRquest(requests: SpiderRequest) {
+    return this._http.put(this.baseUrl + '/requests/delete', requests, {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    });
+  }
+
 }

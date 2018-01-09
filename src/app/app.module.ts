@@ -17,6 +17,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AlertifyService } from './_service/alertify.service'
 import { SpiderResultResolver } from './_resolver/spider-result.resolver';
 import { RequestEditComponent } from './spiders/request-edit/request-edit.component';
+import { RequestCreateComponent } from './spiders/request-create/request-create.component';
+import { SpiderHistoryResolver } from './_resolver/spider-history.rqsolver';
 
 
 @NgModule({
@@ -27,7 +29,8 @@ import { RequestEditComponent } from './spiders/request-edit/request-edit.compon
     SpiderRequestComponent,
     SpiderResultComponent,
     HomeComponent,
-    RequestEditComponent
+    RequestEditComponent,
+    RequestCreateComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,8 @@ import { RequestEditComponent } from './spiders/request-edit/request-edit.compon
   providers: [
     DemoServiceService,
     AlertifyService,
-    SpiderResultResolver
+    SpiderResultResolver,
+    SpiderHistoryResolver
   ],
   bootstrap: [AppComponent]
 })

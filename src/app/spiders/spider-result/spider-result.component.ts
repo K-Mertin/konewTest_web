@@ -17,7 +17,8 @@ export class SpiderResultComponent implements OnInit {
   pagination: Pagination;
   userParams: any = {};
   rowList=  [{ value: 10, display: '10' }, { value: 20, display: '20'}, { value: 30, display: '30'}, { value: 50, display: '50'}, { value: 100, display: '100'}];
-  rowCount = 10;
+  iFilter:string;
+
 
   constructor(private service: DemoServiceService, private route: ActivatedRoute, private alertify: AlertifyService) {}
 
@@ -28,18 +29,18 @@ export class SpiderResultComponent implements OnInit {
     });
 
     this.userParams.sortBy = 'keys';
+    this.userParams.filters = [];
   }
 
   loadDocuments() {
     let requestId = this.route.snapshot.paramMap.get('requestId');
-    this.pagination.pageSize = this.rowCount;
 
     console.log(this.userParams);
 
     this.service.getRequestResult(requestId,this.pagination.pageNumber, this.pagination.pageSize, this.userParams)
       .subscribe( data => {
         this.results = data['data'];
-      this.pagination = data['pagination'];
+        this.pagination = data['pagination'];
       }, error => {
         this.alertify.error(error);
       });
@@ -50,9 +51,19 @@ export class SpiderResultComponent implements OnInit {
     this.loadDocuments();
   }
 
-  resetFilters() {
-    this.rowCount = 10;
+  addFilter() {
+    if(this.iFilter.trim().length > 0){
+      this.userParams.filters.push(this.iFilter)
+      this.iFilter =''
+    }
   }
 
+  removeFilter(i: number) {
+    this.userParams.filters.splice(i, 1);
+  }
+
+  setFilter() {
+    this.loadDocuments()
+  }
 
 }

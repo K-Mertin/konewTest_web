@@ -1,7 +1,20 @@
 <div class="container">
+  <div class="row">
+        <label for="rowCount">每頁顯示: </label>
+        <select style="width: 130px" id="rowCount" [(ngModel)]="pagination.pageSize" (change)="loadRequests()">
+          <option *ngFor="let row of rowList" [value]="row.value">
+            {{row.display}}
+          </option>
+        </select>
+
+      <label>，總共: </label>
+      {{pagination.totalCount}}
+      <label>筆資料 </label>
+      <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#requestCreateModal">New Request</button>
+  </div>
   <div class="panel panel-default">
     <!-- Default panel contents -->
-    <div class="panel-heading">History Request</div>
+    <div class="panel-heading">Request List </div>
 
     <!-- Table -->
     <table class="table table-striped  ">
@@ -29,10 +42,11 @@
           <a [routerLink]="['../../spider/result/',request.requestId]" class="btn btn-primary">
             <i class="fa fa-search" aria-hidden="true"></i>
           </a>
-          <a href="#" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" (click)="setEditRequest(request)">
+          <a href="#" class="btn btn-success" data-toggle="modal" data-target="#requestEditModal" (click)="setEditRequest(request)"
+            *ngIf="request.status!='processing'">
             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
           </a>
-          <a class="btn btn-danger" href="#">
+          <a class="btn btn-danger" (click)="deleteRequest(request)" *ngIf="request.status!='processing'">
             <i class="fa fa-trash-o" aria-hidden="true"></i>
           </a>
         </td>
@@ -41,26 +55,20 @@
   </div>
 
   <!-- Modal -->
-  <div class="modal fade" id="deleteModal" tabinMessagele="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="deleteModalLabel">Message</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          請確認是否刪除。(刪除後，所有查詢資料將一併刪除)
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-danger" (click)="deleteRequest()">Confirm Deletion</button>
-        </div>
-      </div>
-    </div>
-  <!-- Modal -->
-  <div class="modal fade col-md-12" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <app-request-edit [requestEdit]="requestEdit"></app-request-edit>
+  <div class="modal fade col-md-12" id="requestEditModal" tabindex="-1" role="dialog" aria-labelledby="rquestEditModalLabel"
+    aria-hidden="true">
+    <app-request-edit [requestEdit]="requestEdit" [loadRequest]="theBoundCallback"></app-request-edit>
   </div>
+
+  <!-- Modal -->
+  <div class="modal fade col-md-12" id="requestCreateModal" tabindex="-1" role="dialog" aria-labelledby="requestCreateModalLabel"
+    aria-hidden="true">
+    <app-request-create [loadRequest]="theBoundCallback"></app-request-create>
+  </div>
+</div>
+
+<div class="text-center">
+  <pagination [boundaryLinks]="true" [totalItems]="pagination.totalCount" [itemsPerPage]="pagination.pageSize" [(ngModel)]="pagination.pageNumber"
+    class="pagination-sm" (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+    lastText="&raquo;"></pagination>
 </div>

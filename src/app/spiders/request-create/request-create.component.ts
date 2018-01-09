@@ -1,52 +1,49 @@
-import { Component, OnInit, Input } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  FormArray,
-  FormControl
-} from '@angular/forms';
+import { Component, OnInit, Input, OnChanges,ViewChild, ElementRef } from '@angular/core';
 import { SpiderRequest } from '../../_model/SpiderRequest';
+import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
+import { AlertifyService } from '../../_service/alertify.service';
 import { DemoServiceService } from '../../_service/demoService.service';
-import { AlertifyService } from '../../_service/alertify.service'
-
-
+import { Router } from '@angular/router';
 @Component({
-  selector: 'app-spider-request',
-  templateUrl: './spider-request.component.html',
-  styleUrls: ['./spider-request.component.css']
+  selector: 'app-request-create',
+  templateUrl: './request-create.component.html',
+  styleUrls: ['./request-create.component.css']
 })
-export class SpiderRequestComponent implements OnInit {
-  @Input() public loadRequest: Function
-  
+export class RequestCreateComponent implements OnInit {
+  @Input() public loadRequest: Function 
+  @ViewChild('closeTag') closeTag: ElementRef
+
   requestForm: FormGroup;
   requestTypes = [{ value: 'lawbank', display: 'Law Bank' }];
   iSearchKey = '';
   iReferenceKey = '';
   request: SpiderRequest;
 
-
-  constructor(private fb: FormBuilder, private alertify: AlertifyService, private service: DemoServiceService) { }
+  constructor(private fb: FormBuilder, private alertify: AlertifyService, private service: DemoServiceService, private router: Router) { }
 
   ngOnInit() {
+    console.log('init')
     this.createRegisterForm();
   }
 
-  submit() {
+  createRequest() {
     this.request = Object.assign({}, this.requestForm.value);
 
     this.service.addRequests(this.request).subscribe(() => {
       this.alertify.success('requests created')
       this.createRegisterForm()
 
-    }, error => {
-      console.log(error);
+    }, (error) => {
+      this.alertify.error(error)
+    },() => {
+      this.loadRequest();
+      this.closeTag.nativeElement.click();
     });
   }
 
   createRegisterForm() {
     this.requestForm = this.fb.group({
-      requestType: ['lawbank'],
+      requestType: ['lawbank', Validators.required],
       searchKeys: this.fb.array([new FormControl()]),
       referenceKeys: this.fb.array([new FormControl()]),
       requester: ['', Validators.required],
@@ -85,4 +82,5 @@ export class SpiderRequestComponent implements OnInit {
     const control = <FormArray>this.requestForm.controls['referenceKeys'];
     control.removeAt(i);
   }
+
 }
