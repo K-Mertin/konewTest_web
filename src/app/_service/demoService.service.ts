@@ -37,7 +37,11 @@ export class DemoServiceService {
     if (userParams != null) {
       params = params.append('sortBy', userParams.sortBy);
       if (userParams.filters.length > 0) {
-        params = params.append('filters', userParams.filters);
+
+        userParams.filters.forEach(element => {
+          params = params.append('filters', element);
+        });
+        
       }
     }
 

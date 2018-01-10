@@ -58,12 +58,18 @@ export class SpiderResultComponent implements OnInit {
     }
   }
 
+  addtoFilter(filter:string) {
+    this.iFilter = filter
+  }
+
   removeFilter(i: number) {
     this.userParams.filters.splice(i, 1);
   }
 
   setFilter() {
     this.loadDocuments()
+    console.log(this.userParams.filters)
   }
+  
 
 }

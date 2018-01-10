@@ -50,9 +50,9 @@
       </a>
     </h3>
     <h4>
-      <label class="label label-primary" *ngFor="let searchKey of result.searchKeys"> {{searchKey}}</label>
-      <label class="label label-success" *ngFor="let referenceKey of result.referenceKeys"> {{referenceKey}}</label>
-      <label class="label label-default" *ngFor="let tag of result.tags"> {{tag}}</label>
+      <label class="label label-primary" *ngFor="let searchKey of result.searchKeys" (click)="addtoFilter(searchKey)"> {{searchKey}}</label>
+      <label class="label label-success" *ngFor="let referenceKey of result.referenceKeys" (click)="addtoFilter(referenceKey)"> {{referenceKey}}</label>
+      <label class="label label-default" *ngFor="let tag of result.tags" (click)="addtoFilter(tag)"> {{tag}}</label>
 
     </h4>
   </div>
