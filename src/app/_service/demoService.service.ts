@@ -7,6 +7,7 @@ import { SpiderRequest } from '../_model/SpiderRequest';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { resetFakeAsyncZone } from '@angular/core/testing';
 import { SpiderResult } from '../_model/SpiderResult';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class DemoServiceService {
@@ -14,7 +15,7 @@ export class DemoServiceService {
   private demoRequest = '/assets/demoRequestData.json';
   constructor(private _http: HttpClient) { }
 
-  private baseUrl = 'http://localhost:5000'
+  private baseUrl = environment.apiUrl;
 
   getDemo(): Observable<DemoModel[]> {
     return this._http
@@ -41,7 +42,6 @@ export class DemoServiceService {
         userParams.filters.forEach(element => {
           params = params.append('filters', element);
         });
-        
       }
     }
 
