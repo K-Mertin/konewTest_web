@@ -23,11 +23,11 @@ export class RequestEditComponent implements OnInit, OnChanges {
   constructor(private fb: FormBuilder, private alertify: AlertifyService, private service: DemoServiceService, private router: Router) { }
 
   ngOnInit() {
-    console.log('init')
+    // console.log('init')
     this.createRegisterForm();
   }
   ngOnChanges() {
-    console.log('changes');
+    // console.log('changes');
     if (this.requestEdit) {
       this.setRequestForm();
     }
@@ -104,7 +104,7 @@ export class RequestEditComponent implements OnInit, OnChanges {
 
   saveChange() {
     // this.requestEdit = Object.assign({}, this.requestForm.value);
-    console.log(this.requestEdit)
+    // console.log(this.requestEdit)
     this.service.updateReqest(this.requestEdit).subscribe(() => {
       this.alertify.success('requests updated')
     }, error => {

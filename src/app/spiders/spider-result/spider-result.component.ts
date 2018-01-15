@@ -35,7 +35,7 @@ export class SpiderResultComponent implements OnInit {
   loadDocuments() {
     let requestId = this.route.snapshot.paramMap.get('requestId');
 
-    console.log(this.userParams);
+    // console.log(this.userParams);
 
     this.service.getRequestResult(requestId,this.pagination.pageNumber, this.pagination.pageSize, this.userParams)
       .subscribe( data => {
@@ -68,7 +68,7 @@ export class SpiderResultComponent implements OnInit {
 
   setFilter() {
     this.loadDocuments()
-    console.log(this.userParams.filters)
+    // console.log(this.userParams.filters)
   }
   
 
