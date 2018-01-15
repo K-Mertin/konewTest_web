@@ -1,7 +1,7 @@
 <div class="modal-dialog" role="document">
   <div class="modal-content col-md-12">
     <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabel">Edit Request</h5>
+      <span class="modal-title" id="exampleModalLabel">需求編輯</span>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -9,7 +9,7 @@
     <div class="modal-body">
       <form [formGroup]="requestForm">
         <div class="form-group col-md-12">
-          <label>Request Type</label>
+          <label>需求種類</label>
           <select class="form-control" formControlName="requestType">
             <option *ngFor="let type of requestTypes" [value]="type.value">
               {{type.display}}
@@ -17,7 +17,7 @@
           </select>
         </div>
         <div class="col-md-12 searchKeys">
-          <label>Search Keys</label>
+          <label>主要關鍵字</label>
         </div>
         <!-- <input type="text" [(ngModel)]="iSearchKey" [ngModelOptions]="{standalone: true}" (keyup.enter)="addSearchKey()"> -->
         <!-- <a (click)="addSearchKey()" class="label label-success">
@@ -36,7 +36,7 @@
         </div>
 
         <div class="col-md-12 referenceKeys">
-          <label>Reference Keys</label>
+          <label>參考關鍵字</label>
           <input type="text" [(ngModel)]="iReferenceKey" [ngModelOptions]="{standalone: true}" (keyup.enter)="addReferenceKey()">
           <a (click)="addReferenceKey()" class="label label-success">
             <i class="fa fa-plus" aria-hidden="true"></i>
@@ -57,8 +57,8 @@
       </form>
     </div>
     <div class="modal-footer col-md-12">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal" #closeTag>Close</button>
-      <button type="button" class="btn btn-primary" (click)="saveChange()">Save changes</button>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" #closeTag>關閉</button>
+      <button type="button" class="btn btn-primary" (click)="saveChange()">儲存異動</button>
     </div>
   </div>
 </div>

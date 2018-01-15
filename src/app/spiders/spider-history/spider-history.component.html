@@ -10,23 +10,23 @@
       <label>，總共: </label>
       {{pagination.totalCount}}
       <label>筆資料 </label>
-      <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#requestCreateModal">New Request</button>
+      <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#requestCreateModal">建立新需求</button>
   </div>
   <div class="panel panel-default">
     <!-- Default panel contents -->
-    <div class="panel-heading">Request List </div>
+    <div class="panel-heading">需求清單</div>
 
     <!-- Table -->
     <table class="table table-striped  ">
       <thead>
         <tr>
-          <th>RequestId</th>
-          <th>Status</th>
-          <th>Date</th>
+          <th>需求代號</th>
+          <th>狀態</th>
+          <th>需求日期</th>
           <!-- <th>RequestType</th> -->
-          <th>SearchKeys</th>
-          <th>ReferenceKeys</th>
-          <th>Operation</th>
+          <th>主要關鍵字</th>
+          <th>參考關鍵字</th>
+          <th>功能</th>
         </tr>
       </thead>
       <tr *ngFor="let request of demoRequest">

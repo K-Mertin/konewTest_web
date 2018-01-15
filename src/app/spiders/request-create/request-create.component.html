@@ -1,7 +1,7 @@
 <div class="modal-dialog" role="document">
   <div class="modal-content col-md-12">
     <div class="modal-header">
-      <span class="modal-title" id="exampleModalLabel">New Request</span>
+      <span class="modal-title" id="exampleModalLabel">需求建立</span>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -9,7 +9,7 @@
     <div class="modal-body">
       <form [formGroup]="requestForm">
         <div class="form-group col-md-12">
-          <label>Request Type</label>
+          <label>需求種類</label>
           <select class="form-control" formControlName="requestType">
             <option *ngFor="let type of requestTypes" [value]="type.value">
               {{type.display}}
@@ -17,7 +17,7 @@
           </select>
         </div>
         <div class="col-md-12 searchKeys">
-          <label>Search Keys</label>
+          <label>主要關鍵字</label>
           <input type="text" [(ngModel)]="iSearchKey" [ngModelOptions]="{standalone: true}" (keyup.enter)="addSearchKey()">
           <a (click)="addSearchKey()" class="label label-success">
             <i class="fa fa-plus" aria-hidden="true"></i>
@@ -35,7 +35,7 @@
         </div>
 
         <div class="col-md-12 referenceKeys">
-          <label>Reference Keys</label>
+          <label>次要關鍵字</label>
           <input type="text" [(ngModel)]="iReferenceKey" [ngModelOptions]="{standalone: true}" (keyup.enter)="addReferenceKey()">
           <a (click)="addReferenceKey()" class="label label-success">
             <i class="fa fa-plus" aria-hidden="true"></i>
@@ -56,8 +56,8 @@
       </form>
     </div>
     <div class="modal-footer col-md-12">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal" #closeTag>Close</button>
-      <button type="button" class="btn btn-primary" (click)="createRequest()" *ngIf="requestForm.value.searchKeys.length>0">Create</button>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" #closeTag>關閉</button>
+      <button type="button" class="btn btn-primary" (click)="createRequest()" *ngIf="requestForm.value.searchKeys.length>0">新增需求</button>
     </div>
   </div>
 </div>

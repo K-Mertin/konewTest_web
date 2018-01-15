@@ -15,21 +15,21 @@
       <label>筆資料 </label>
       <!-- HTML for ordering -->
       <div class="pull-right">
-        <label style="margin-right: 10px">Order By: </label>
+        <label style="margin-right: 10px">優先顯示: </label>
         <div class="btn-group">
           <button type="button" [(ngModel)]="userParams.sortBy" class="btn btn-primary" name="sortBy" btnRadio="date" (click)="loadDocuments()">裁判日</button>
-          <button type="button" [(ngModel)]="userParams.sortBy" class="btn btn-primary" name="sortBy" btnRadio="keys" (click)="loadDocuments()">符合數量</button>
+          <button type="button" [(ngModel)]="userParams.sortBy" class="btn btn-primary" name="sortBy" btnRadio="keys" (click)="loadDocuments()">關鍵字符合數量</button>
         </div>
       </div>
     </div>
   </div>
   <div class="row">
-    <label>Filters</label>
+    <label>關鍵字過濾</label>
     <input type="text" [(ngModel)]="iFilter" [ngModelOptions]="{standalone: true}" (keyup.enter)="addFilter()">
     <a (click)="addFilter()" class="label label-success">
       <i class="fa fa-plus" aria-hidden="true"></i>
     </a>
-    <button type="button" class="btn btn-primary  btn-sm" style="margin-left:10px" (click)="setFilter()">Apply Filter</button>
+    <button type="button" class="btn btn-primary  btn-sm" style="margin-left:10px" (click)="setFilter()">套用</button>
     <div>
         <div *ngFor="let filter of userParams.filters; let i=index" class="col-md-4">
           <h5>

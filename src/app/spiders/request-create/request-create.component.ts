@@ -14,7 +14,7 @@ export class RequestCreateComponent implements OnInit {
   @ViewChild('closeTag') closeTag: ElementRef
 
   requestForm: FormGroup;
-  requestTypes = [{ value: 'lawbank', display: 'Law Bank' }];
+  requestTypes = [{ value: 'lawbank', display: '法源網' }];
   iSearchKey = '';
   iReferenceKey = '';
   request: SpiderRequest;

@@ -20,7 +20,7 @@ export class SpiderRequestComponent implements OnInit {
   @Input() public loadRequest: Function
   
   requestForm: FormGroup;
-  requestTypes = [{ value: 'lawbank', display: 'Law Bank' }];
+  requestTypes = [{ value: 'lawbank', display: '法源網' }];
   iSearchKey = '';
   iReferenceKey = '';
   request: SpiderRequest;

@@ -15,7 +15,7 @@ export class RequestEditComponent implements OnInit, OnChanges {
   @ViewChild('closeTag') closeTag: ElementRef
 
   requestForm: FormGroup;
-  requestTypes = [{ value: 'lawbank', display: 'Law Bank' }];
+  requestTypes = [{ value: 'lawbank', display: '需求種類' }];
   iSearchKey = '';
   iReferenceKey = '';
   // request: SpiderRequest;

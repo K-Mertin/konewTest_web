@@ -2,7 +2,7 @@
   <form [formGroup]="requestForm">
     
     <div class="col-md-6">
-        <label>Request Type</label>
+        <label>需求種類</label>
     </div>
     <div class="col-md-6">
     <div class="form-group">
@@ -15,7 +15,7 @@
     </div>
     <div class="col-md-6">
       <div class="col-md-12">
-          <label>Search Keys</label>
+          <label>主要關鍵字</label>
           <input type="text" [(ngModel)]="iSearchKey" [ngModelOptions]="{standalone: true}" (keyup.enter)="addSearchKey()">
           <a (click)="addSearchKey()" class="label label-success">
             <i class="fa fa-plus" aria-hidden="true"></i>
@@ -34,7 +34,7 @@
 
     <div class="col-md-6">
       <div class="col-md-12">
-          <label>Reference Keys</label>
+          <label>次要關鍵字</label>
           <input type="text" [(ngModel)]="iReferenceKey" [ngModelOptions]="{standalone: true}" (keyup.enter)="addReferenceKey()">
           <a (click)="addReferenceKey()" class="label label-success">
             <i class="fa fa-plus" aria-hidden="true"></i>
@@ -51,6 +51,6 @@
     </div>
   </form>
   <div class="col-md-1 pull-right">
-    <button (click)="submit()" class="btn btn-primary" *ngIf="requestForm.value.searchKeys.length>0">Send Request</button>
+    <button (click)="submit()" class="btn btn-primary" *ngIf="requestForm.value.searchKeys.length>0">新增需求</button>
   </div>
 </div>
