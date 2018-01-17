@@ -53,7 +53,7 @@ export class SpiderHistoryComponent implements OnInit {
 
 
   deleteRequest(request) {
-    if (confirm("確定要刪除?(刪除後將無法取回資料)")) {
+    if (confirm('確定要刪除?(刪除後將無法取回資料)')) {
       this.service.removeRquest(request).subscribe(() => {
         this.alertify.success('Deleted');
       }, error => {
@@ -63,6 +63,24 @@ export class SpiderHistoryComponent implements OnInit {
       })
     }
     // this.service.removeRquest()
+  }
+
+  getRowColor(request) {
+    switch (request.status) {
+      case 'created':
+        return 'active';
+      case 'modified':
+        return 'active';
+      case 'finished':
+        return 'success';
+      case 'failed':
+        return 'danger';
+      case 'processing':
+        return 'warning';
+      default:
+        return 'info';
+    }
+
   }
 
 }
