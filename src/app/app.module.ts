@@ -19,6 +19,8 @@ import { SpiderResultResolver } from './_resolver/spider-result.resolver';
 import { RequestEditComponent } from './spiders/request-edit/request-edit.component';
 import { RequestCreateComponent } from './spiders/request-create/request-create.component';
 import { SpiderHistoryResolver } from './_resolver/spider-history.rqsolver';
+import { RelationlistComponent } from './relationlist/relationlist.component';
+import { RelationService } from './_service/relation.service';
 
 
 @NgModule({
@@ -31,7 +33,9 @@ import { SpiderHistoryResolver } from './_resolver/spider-history.rqsolver';
     HomeComponent,
     RequestEditComponent,
     RequestCreateComponent
-  ],
+,
+    RelationlistComponent
+],
   imports: [
     BrowserModule,
     HttpModule,
@@ -46,7 +50,8 @@ import { SpiderHistoryResolver } from './_resolver/spider-history.rqsolver';
     DemoServiceService,
     AlertifyService,
     SpiderResultResolver,
-    SpiderHistoryResolver
+    SpiderHistoryResolver,
+    RelationService
   ],
   bootstrap: [AppComponent]
 })

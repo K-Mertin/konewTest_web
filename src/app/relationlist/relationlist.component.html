@@ -1,0 +1,80 @@
+<div class="container">
+  <form [formGroup]="relationForm">
+    <div>
+      <div class="form-group">
+        <input type="text" placeholder="登錄原因" formControlName="reason">
+        <div *ngIf="relationForm.controls['reason'].touched && relationForm.controls['reason'].invalid" class="alert alert-danger">
+          請輸入登錄原因
+        </div>
+      </div>
+      <input type="text" placeholder="建檔人員" formControlName="user">
+      <div *ngIf="relationForm.controls['user'].touched && relationForm.controls['user'].invalid" class="alert alert-danger">
+        請輸入建檔人員
+      </div>
+    </div>
+    <div>
+      <div class="col-md-12">
+        <label>借款人</label>
+      </div>
+      <div formArrayName="subjects">
+        <div *ngFor="let subject of relationForm.controls['subjects'].controls; let i=index">
+          <div>
+            <span>負責人 {{i + 1}}</span>
+            <span class="fa fa-times  pull-right" *ngIf="relationForm.controls['subjects'].controls.length > 1" (click)="remove(i,'subjects')">
+            </span>
+          </div>
+          <div class="form-group" [formGroupName]="i">
+            <input type="text" placeholder="負責人/公司名" formControlName="name">
+            <input type="text" placeholder="負責人/公司統編" formControlName="idNumber">
+            <div *ngIf="(relationForm.controls['subjects'].controls[i].controls.idNumber.touched||relationForm.controls['subjects'].controls[i].controls.name.touched) && relationForm.controls['subjects'].controls[i].hasError('checkValidate')"
+              class="alert alert-danger">
+              姓名與統編須擇一輸入
+            </div>
+          </div>
+        </div>
+        <div class="margin-20">
+          <a (click)="addSubject()" style="cursor: default">
+            添加負責人 +
+          </a>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="col-md-12">
+        <label>關係人</label>
+      </div>
+      <div formArrayName="objects">
+        <div *ngFor="let object of relationForm.controls['objects'].controls; let i=index">
+          <div>
+            <span>關係人/公司 {{i + 1}}</span>
+            <span class="fa fa-times  pull-right" *ngIf="relationForm.controls['objects'].controls.length > 1" (click)="remove(i,'objects')">
+            </span>
+          </div>
+          <div class="form-group" [formGroupName]="i">
+            <input type="text" placeholder="關係人/公司名" formControlName="name">
+            <input type="text" placeholder="關係人/公司統編" formControlName="idNumber">
+            <input type="text" placeholder="關係種類" formControlName="relationType">
+            <div *ngIf="(relationForm.controls['objects'].controls[i].controls.idNumber.touched||relationForm.controls['objects'].controls[i].controls.name.touched) && relationForm.controls['objects'].controls[i].hasError('checkValidate')"
+              class="alert alert-danger">
+              姓名與統編須擇一輸入
+            </div>
+            <div *ngIf="relationForm.controls['objects'].controls[i].controls.relationType.touched && relationForm.controls['objects'].controls[i].controls.relationType.invalid"
+              class="alert alert-danger">
+              請輸入關係種類
+            </div>
+          </div>
+        </div>
+        <div class="margin-20">
+          <a (click)="addObject()" style="cursor: default">
+            添加新關係 +
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <pre>  {{relationForm.value|json}}</pre>
+  </form>
+  <div class="col-md-1 pull-right" *ngIf="!relationForm.invalid">
+    <button class="btn btn-primary">新增需求</button>
+  </div>
+</div>
