@@ -62,6 +62,13 @@ export class RelationlistComponent implements OnInit {
     control.removeAt(i);
   }
 
+  insertRelation() {
+    console.log(this.relationForm.value);
+  }
+  clearForm() {
+    this.createRelationForm();
+  }
+
 
   checkValidate(nameKey: string, idnumberKey: string) {
     return (group: FormGroup): {[key: string]: any} => {

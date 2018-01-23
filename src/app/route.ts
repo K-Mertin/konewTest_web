@@ -6,6 +6,7 @@ import { SpiderHistoryComponent } from './spiders/spider-history/spider-history.
 import { SpiderResultResolver } from './_resolver/spider-result.resolver';
 import { SpiderHistoryResolver } from './_resolver/spider-history.rqsolver';
 import { RelationlistComponent } from './relationlist/relationlist.component';
+import { RelationqueryComponent } from './relationquery/relationquery.component';
 
 export const appRoutes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -14,7 +15,8 @@ export const appRoutes: Routes = [
     { path: 'spider/result', component: SpiderResultComponent },
     { path: 'spider/result/:requestId', component: SpiderResultComponent, resolve:{results: SpiderResultResolver } },
     { path: 'spider/history', component: SpiderHistoryComponent, resolve:{requests: SpiderHistoryResolver } },
-    { path: 'relationlsit', component: RelationlistComponent },
+    { path: 'relation', component: RelationlistComponent },
+    { path: 'relation/query', component: RelationqueryComponent },
     // {
     //     path: '',
     //     runGuardsAndResolvers: 'always',

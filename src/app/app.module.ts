@@ -21,6 +21,7 @@ import { RequestCreateComponent } from './spiders/request-create/request-create.
 import { SpiderHistoryResolver } from './_resolver/spider-history.rqsolver';
 import { RelationlistComponent } from './relationlist/relationlist.component';
 import { RelationService } from './_service/relation.service';
+import { RelationqueryComponent } from './relationquery/relationquery.component';
 
 
 @NgModule({
@@ -32,9 +33,9 @@ import { RelationService } from './_service/relation.service';
     SpiderResultComponent,
     HomeComponent,
     RequestEditComponent,
-    RequestCreateComponent
-,
-    RelationlistComponent
+    RequestCreateComponent,
+    RelationlistComponent,
+    RelationqueryComponent
 ],
   imports: [
     BrowserModule,
