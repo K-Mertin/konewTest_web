@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
 import { AlertifyService } from '../_service/alertify.service';
 import { RelationService } from '../_service/relation.service';
+import { Relation } from '../_model/Relation';
 
 @Component({
   selector: 'app-relationlist',
@@ -11,11 +12,12 @@ import { RelationService } from '../_service/relation.service';
 export class RelationlistComponent implements OnInit {
 
   relationForm: FormGroup;
+  relation: Relation;
   // requestTypes = [{ value: 'lawbank', display: '法源網' }];
   iSearchKey = '';
   iReferenceKey = '';
 
-  constructor(private fb: FormBuilder, private alertify: AlertifyService, private service: RelationService) { }
+  constructor(private fb: FormBuilder, private alertify: AlertifyService, private relationService: RelationService) { }
 
   ngOnInit() {
     this.createRelationForm();
@@ -25,12 +27,13 @@ export class RelationlistComponent implements OnInit {
     this.relationForm = this.fb.group({
       subjects: this.fb.array([this.fb.group({
         name: [''],
-        idNumber: ['']
+        idNumber: [''],
+        memo: ['', Validators.required]
       },{validator: this.checkValidate('name', 'idNumber')})]),
       objects: this.fb.array([this.fb.group({
         name: [''],
         idNumber: [''],
-        relationType: ['', Validators.required]
+        memo: ['', Validators.required]
       },{validator: this.checkValidate('name', 'idNumber')}),]),
       reason: ['', Validators.required],
       user: ['', Validators.required]
@@ -43,7 +46,7 @@ export class RelationlistComponent implements OnInit {
     control.push(this.fb.group({
       name: [''],
       idNumber: [''],
-      relationType: ['', Validators.required]
+      memo: ['', Validators.required]
     },{validator: this.checkValidate('name', 'idNumber')}));
   }
 
@@ -53,6 +56,7 @@ export class RelationlistComponent implements OnInit {
     control.push(this.fb.group({
       name: [''],
       idNumber: [''],
+      memo: ['', Validators.required]
     },{validator: this.checkValidate('name', 'idNumber')}));
   }
 
@@ -62,9 +66,19 @@ export class RelationlistComponent implements OnInit {
     control.removeAt(i);
   }
 
-  insertRelation() {
-    console.log(this.relationForm.value);
+  addRelation() {
+
+    this.relation = Object.assign({}, this.relationForm.value);
+
+    this.relationService.addRelation(this.relation).subscribe(request => {
+        this.alertify.success('relation created');
+    }, error => {
+        this.alertify.error('failed');
+    }  );
+    // console.log(this.relationForm.value);
   }
+
+
   clearForm() {
     this.createRelationForm();
   }

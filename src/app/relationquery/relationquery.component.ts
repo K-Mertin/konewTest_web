@@ -25,7 +25,7 @@ export class RelationqueryComponent implements OnInit {
 
   list: string[] = [];
   relations: Relation[];
-  queryType = 'id';
+  queryType = 'idNumber';
   subscription: Subscription[];
 
   constructor(
@@ -34,9 +34,7 @@ export class RelationqueryComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(RELATIONS.filter((relation) => 
-      relation.objects.concat(relation.subjects).filter(o=>o.idNumber==='D001').length>0
-     ));
+    console.log( );
   }
 
   // tslint:disable-next-line:use-life-cycle-interface
@@ -45,7 +43,8 @@ export class RelationqueryComponent implements OnInit {
   }
 
   search(key, type) {
-    this.relationService.search(key, type);
+    this.relationService.search(key, type).subscribe(relations => this.relations = relations) ;
+    console.log(this.relations);
   }
 
   filterEnterEvent() {
