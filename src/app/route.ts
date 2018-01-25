@@ -5,8 +5,8 @@ import { SpiderResultComponent } from './spiders/spider-result/spider-result.com
 import { SpiderHistoryComponent } from './spiders/spider-history/spider-history.component';
 import { SpiderResultResolver } from './_resolver/spider-result.resolver';
 import { SpiderHistoryResolver } from './_resolver/spider-history.rqsolver';
-import { RelationlistComponent } from './relationlist/relationlist.component';
-import { RelationqueryComponent } from './relationquery/relationquery.component';
+import { RelationlistComponent } from './relations/relationlist/relationlist.component';
+import { RelationqueryComponent } from './relations/relationquery/relationquery.component';
 
 export const appRoutes: Routes = [
     { path: 'home', component: HomeComponent },

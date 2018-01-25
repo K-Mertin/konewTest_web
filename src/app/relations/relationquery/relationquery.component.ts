@@ -5,14 +5,15 @@ import {
   ViewChild,
   AfterViewInit
 } from '@angular/core';
-import { RelationService } from '../_service/relation.service';
-import { Relation, RELATIONS } from '../_model/Relation';
+import { RelationService } from '../../_service/relation.service';
+import { Relation, RELATIONS } from '../../_model/Relation';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/debounceTime';
+import { AlertifyService } from '../../_service/alertify.service';
 
 @Component({
   selector: 'app-relationquery',
@@ -26,15 +27,20 @@ export class RelationqueryComponent implements OnInit {
   list: string[] = [];
   relations: Relation[];
   queryType = 'idNumber';
+  queryKey = '';
   subscription: Subscription[];
+  relationEdit: Relation;
+
+  public theBoundCallback: Function;
 
   constructor(
     private relationService: RelationService,
+    private alertify: AlertifyService,
     private element: ElementRef
-  ) {}
+  ) { }
 
   ngOnInit() {
-    console.log( );
+    this.theBoundCallback = this.search.bind(this);
   }
 
   // tslint:disable-next-line:use-life-cycle-interface
@@ -42,8 +48,8 @@ export class RelationqueryComponent implements OnInit {
     this.subscription = [this.filterEnterEvent(), this.filterKeyupEvent()];
   }
 
-  search(key, type) {
-    this.relationService.search(key, type).subscribe(relations => this.relations = relations) ;
+  search() {
+    this.relationService.search(this.queryKey, this.queryType).subscribe(relations => this.relations = relations);
     console.log(this.relations);
   }
 
@@ -63,16 +69,34 @@ export class RelationqueryComponent implements OnInit {
       });
   }
 
+  deleteRelation(id: string) {
+    if (confirm('確定要刪除?(刪除後將無法取回資料)')) {
+      this.relationService.deleteRelation(id).subscribe(r => {
+        this.alertify.success('relation deleted');
+      }, error => {
+        this.alertify.error('Failed'); ``
+      }, () => {
+        this.search();
+      })
+    }
+  }
+
+  // this.service.removeRquest()
+
   filterKeyupEvent() {
     return Observable.fromEvent(this.input.nativeElement, 'keyup').filter(
       e => e['target'].value === ''
     )
-    .subscribe(() => { this.list = []; });
+      .subscribe(() => { this.list = []; });
   }
 
   suggestSelected(key: string) {
     // console.log(key);
     this.input.nativeElement.value = key;
     this.list = [];
+  }
+
+  setEditRelation(relation: Relation) {
+    this.relationEdit = relation;
   }
 }

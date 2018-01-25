@@ -19,9 +19,10 @@ import { SpiderResultResolver } from './_resolver/spider-result.resolver';
 import { RequestEditComponent } from './spiders/request-edit/request-edit.component';
 import { RequestCreateComponent } from './spiders/request-create/request-create.component';
 import { SpiderHistoryResolver } from './_resolver/spider-history.rqsolver';
-import { RelationlistComponent } from './relationlist/relationlist.component';
+import { RelationlistComponent } from './relations/relationlist/relationlist.component';
 import { RelationService } from './_service/relation.service';
-import { RelationqueryComponent } from './relationquery/relationquery.component';
+import { RelationqueryComponent } from './relations/relationquery/relationquery.component';
+import { RelationEditComponent } from './relations/relation-edit/relation-edit.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { RelationqueryComponent } from './relationquery/relationquery.component'
     RequestEditComponent,
     RequestCreateComponent,
     RelationlistComponent,
-    RelationqueryComponent
+    RelationqueryComponent,
+    RelationEditComponent
 ],
   imports: [
     BrowserModule,

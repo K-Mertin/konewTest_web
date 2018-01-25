@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
-import { AlertifyService } from '../_service/alertify.service';
-import { RelationService } from '../_service/relation.service';
-import { Relation } from '../_model/Relation';
+import { AlertifyService } from '../../_service/alertify.service';
+import { RelationService } from '../../_service/relation.service';
+import { Relation } from '../../_model/Relation';
 
 @Component({
   selector: 'app-relationlist',
@@ -66,12 +66,14 @@ export class RelationlistComponent implements OnInit {
     control.removeAt(i);
   }
 
+
   addRelation() {
 
     this.relation = Object.assign({}, this.relationForm.value);
 
     this.relationService.addRelation(this.relation).subscribe(request => {
         this.alertify.success('relation created');
+        this.clearForm()
     }, error => {
         this.alertify.error('failed');
     }  );
@@ -95,5 +97,7 @@ export class RelationlistComponent implements OnInit {
       }
     }
   }
+
+
 
 }
