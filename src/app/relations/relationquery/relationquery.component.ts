@@ -74,10 +74,10 @@ export class RelationqueryComponent implements OnInit {
       this.relationService.deleteRelation(id).subscribe(r => {
         this.alertify.success('relation deleted');
       }, error => {
-        this.alertify.error('Failed'); ``
+        this.alertify.error('Failed');
       }, () => {
         this.search();
-      })
+      });
     }
   }
 

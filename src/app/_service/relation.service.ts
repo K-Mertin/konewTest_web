@@ -30,7 +30,6 @@ export class RelationService {
   }
 
   addRelation(relation: Relation) {
-    // console.log('123')
     return this._http.post(this.baseUrl, relation, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/form-data')
@@ -38,7 +37,7 @@ export class RelationService {
   }
 
   deleteRelation( id: string) {
-    return this._http.delete(this.baseUrl+'/'+id);
+    return this._http.delete(this.baseUrl + '/' + id);
   }
 
   updateRelation( relation: Relation) {

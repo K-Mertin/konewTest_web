@@ -20,9 +20,10 @@ export class RelationEditComponent implements OnInit {
   constructor(private fb: FormBuilder, private alertify: AlertifyService, private relationService: RelationService) { }
 
   ngOnInit() {
-    this.createRelationForm()
+    this.createRelationForm();
   }
 
+  // tslint:disable-next-line:use-life-cycle-interface
   ngOnChanges() {
     console.log('changes');
     if (this.relationEdit) {
@@ -66,7 +67,7 @@ export class RelationEditComponent implements OnInit {
         name: [''],
         idNumber: [''],
         memo: ['', Validators.required]
-      }, { validator: this.checkValidate('name', 'idNumber') }),]),
+      }, { validator: this.checkValidate('name', 'idNumber') })]),
       reason: ['', Validators.required],
       user: ['', Validators.required]
     });
@@ -118,23 +119,23 @@ export class RelationEditComponent implements OnInit {
 
   checkValidate(nameKey: string, idnumberKey: string) {
     return (group: FormGroup): { [key: string]: any } => {
-      let name = group.controls[nameKey];
-      let idnumber = group.controls[idnumberKey];
+      const name = group.controls[nameKey];
+      const idnumber = group.controls[idnumberKey];
       if (name.value.trim() === '' && idnumber.value.trim() === '') {
         return {
           checkValidate: true
         };
       }
-    }
+    };
   }
 
   saveChange() {
-    this.relationEdit= Object.assign({},this.relationEdit, this.relationForm.value);
+    this.relationEdit = Object.assign({}, this.relationEdit, this.relationForm.value);
     this.relationService.updateRelation(this.relationEdit).subscribe(() => {
-      this.alertify.success('relation updated')
+      this.alertify.success('relation updated');
     }, error => {
       console.log(error);
-    },() => {
+    }, () => {
       this.search();
       this.closeTag.nativeElement.click();
     } );

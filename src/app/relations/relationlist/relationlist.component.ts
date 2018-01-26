@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@ang
 import { AlertifyService } from '../../_service/alertify.service';
 import { RelationService } from '../../_service/relation.service';
 import { Relation } from '../../_model/Relation';
+import { FileUploader } from 'ng2-file-upload';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-relationlist',
@@ -11,16 +13,33 @@ import { Relation } from '../../_model/Relation';
 })
 export class RelationlistComponent implements OnInit {
 
+  private baseUrl = environment.apiUrl + '/relation';
   relationForm: FormGroup;
   relation: Relation;
-  // requestTypes = [{ value: 'lawbank', display: '法源網' }];
-  iSearchKey = '';
-  iReferenceKey = '';
+  uploader: FileUploader;
+  relationlist = ['關係A', '關係B', '關係C', '關係D', '關係E', '關係F', '關係G', '其他'];
 
   constructor(private fb: FormBuilder, private alertify: AlertifyService, private relationService: RelationService) { }
 
   ngOnInit() {
     this.createRelationForm();
+    this.initializeUploader();
+  }
+
+  initializeUploader() {
+    this.uploader = new FileUploader({
+      url: this.baseUrl + '/uploads',
+      headers: [{ name: 'Content-Type', value: 'application/form-data' }],
+      isHTML5: true,
+      removeAfterUpload: true,
+      autoUpload: true,
+    });
+
+    this.uploader.onSuccessItem = (item, response, status, headers) => {
+      if (response) {
+        console.log(status);
+      }
+    };
   }
 
   createRelationForm() {
@@ -28,13 +47,14 @@ export class RelationlistComponent implements OnInit {
       subjects: this.fb.array([this.fb.group({
         name: [''],
         idNumber: [''],
-        memo: ['', Validators.required]
-      },{validator: this.checkValidate('name', 'idNumber')})]),
+        memo: ['']
+      }, { validator: this.checkValidate('name', 'idNumber')})]),
       objects: this.fb.array([this.fb.group({
         name: [''],
         idNumber: [''],
-        memo: ['', Validators.required]
-      },{validator: this.checkValidate('name', 'idNumber')}),]),
+        relationType: ['', Validators.required ],
+        memo: ['']
+      }, { validator: this.checkValidate('name', 'idNumber')})]),
       reason: ['', Validators.required],
       user: ['', Validators.required]
     });
@@ -46,8 +66,9 @@ export class RelationlistComponent implements OnInit {
     control.push(this.fb.group({
       name: [''],
       idNumber: [''],
-      memo: ['', Validators.required]
-    },{validator: this.checkValidate('name', 'idNumber')}));
+      relationType: ['', Validators.required ],
+      memo: ['']
+    }, {validator: this.checkValidate('name', 'idNumber')}));
   }
 
   addSubject() {
@@ -56,8 +77,8 @@ export class RelationlistComponent implements OnInit {
     control.push(this.fb.group({
       name: [''],
       idNumber: [''],
-      memo: ['', Validators.required]
-    },{validator: this.checkValidate('name', 'idNumber')}));
+      memo: ['']
+    }, {validator: this.checkValidate('name', 'idNumber')}));
   }
 
   remove(i: number, target: string) {
@@ -71,13 +92,13 @@ export class RelationlistComponent implements OnInit {
 
     this.relation = Object.assign({}, this.relationForm.value);
 
-    this.relationService.addRelation(this.relation).subscribe(request => {
-        this.alertify.success('relation created');
-        this.clearForm()
-    }, error => {
-        this.alertify.error('failed');
-    }  );
-    // console.log(this.relationForm.value);
+    // this.relationService.addRelation(this.relation).subscribe(request => {
+    //     this.alertify.success('relation created');
+    //     this.clearForm();
+    // }, error => {
+    //     this.alertify.error('failed');
+    // }  );
+    console.log(this.relationForm.value);
   }
 
 
