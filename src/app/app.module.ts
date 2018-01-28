@@ -23,6 +23,7 @@ import { RelationlistComponent } from './relations/relationlist/relationlist.com
 import { RelationService } from './_service/relation.service';
 import { RelationqueryComponent } from './relations/relationquery/relationquery.component';
 import { RelationEditComponent } from './relations/relation-edit/relation-edit.component';
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { RelationEditComponent } from './relations/relation-edit/relation-edit.c
     FormsModule,
     HttpClientModule,
     PaginationModule.forRoot(),
-    ButtonsModule.forRoot()
+    ButtonsModule.forRoot(),
+    AngularMultiSelectModule
   ],
   providers: [
     DemoServiceService,

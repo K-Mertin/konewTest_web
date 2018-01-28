@@ -2,6 +2,11 @@
   <div class="text-center">
     <h3>關係人資料建檔</h3>
   </div>
+  <div class="float-label-control pull-right">
+    <div class="btn btn-sm btn-default">匯入檔案
+      <input class="uploadfile-style" (change)="fileChange($event)" name="filePath" type="file">
+    </div>
+  </div>
   <form [formGroup]="relationForm">
     <div class="form-group">
       <div class="col-sm-6">
@@ -73,12 +78,15 @@
           <div class="form-group" [formGroupName]="i">
             <input class="input" type="text" placeholder="關係人/公司名" formControlName="name">
             <input class="input" type="text" placeholder="關係人/公司統編" formControlName="idNumber">
-            <input class="input" type="text" placeholder="關係註記" formControlName="memo">
+            <input class="input" type="text" placeholder="註記" formControlName="memo">
+
+            <angular2-multiselect [data]="dropdownList" [settings]="dropdownSettings" formControlName="relationType">
+            </angular2-multiselect>
             <div *ngIf="(relationForm.controls['objects'].controls[i].controls.idNumber.touched||relationForm.controls['objects'].controls[i].controls.name.touched) && relationForm.controls['objects'].controls[i].hasError('checkValidate')"
               class="alert alert-danger">
               姓名與統編須擇一輸入
             </div>
-            <div *ngIf="relationForm.controls['objects'].controls[i].controls.memo.touched && relationForm.controls['objects'].controls[i].controls.memo.invalid"
+            <div *ngIf="relationForm.controls['objects'].controls[i].controls.memo.touched && relationForm.controls['objects'].controls[i].hasError('checkMemo')"
               class="alert alert-danger">
               請輸入關係註記
             </div>
@@ -92,5 +100,5 @@
     <button class="btn btn-primary" *ngIf="!relationForm.invalid" (click)="addRelation()">新增</button>
   </div>
 
- 
+
 </div>
