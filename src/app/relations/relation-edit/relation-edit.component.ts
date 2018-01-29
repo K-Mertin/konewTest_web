@@ -23,29 +23,25 @@ export class RelationEditComponent implements OnInit {
   constructor(private fb: FormBuilder, private alertify: AlertifyService, private relationService: RelationService) { }
 
   ngOnInit() {
-<<<<<<< HEAD
-    this.createRelationForm();
-=======
     this.createRelationForm()
     this.dropdownList = [
-      { "id": 8, "itemName": "relateionType1" },
-      { "id": 2, "itemName": "relateionType2" },
-      { "id": 3, "itemName": "relateionType3" },
-      { "id": 4, "itemName": "relateionType4" },
-      { "id": 5, "itemName": "relateionType5" },
-      { "id": 6, "itemName": "relateionType6" },
-      { "id": 7, "itemName": "relateionType7" },
-      { "id": 1, "itemName": "其他" },
+      { 'id': 8, 'itemName': 'relateionType1' },
+      { 'id': 2, 'itemName': 'relateionType2' },
+      { 'id': 3, 'itemName': 'relateionType3' },
+      { 'id': 4, 'itemName': 'relateionType4' },
+      { 'id': 5, 'itemName': 'relateionType5' },
+      { 'id': 6, 'itemName': 'relateionType6' },
+      { 'id': 7, 'itemName': 'relateionType7' },
+      { 'id': 1, 'itemName': '其他' },
       
     ];
     this.dropdownSettings = {
       singleSelection: false,
       enableCheckAll: false,
-      text: "請選擇關係種類",
+      text: '請選擇關係種類',
       enableSearchFilter: false,
-      classes: "relationTypeList"
+      classes: 'relationTypeList'
     };
->>>>>>> 479e4886d9a4ee45b0b0541aae12346cf9291864
   }
 
   // tslint:disable-next-line:use-life-cycle-interface
@@ -92,14 +88,9 @@ export class RelationEditComponent implements OnInit {
       objects: this.fb.array([this.fb.group({
         name: [''],
         idNumber: [''],
-<<<<<<< HEAD
-        memo: ['', Validators.required]
-      }, { validator: this.checkValidate('name', 'idNumber') })]),
-=======
         relationType: [[], Validators.required],
         memo: ['']
       }, { validator: Validators.compose([this.checkValidate('name', 'idNumber'), this.checkMemo('relationType','memo')])})]),
->>>>>>> 479e4886d9a4ee45b0b0541aae12346cf9291864
       reason: ['', Validators.required],
       user: ['', Validators.required]
     });
@@ -165,7 +156,7 @@ export class RelationEditComponent implements OnInit {
     return (group: FormGroup): { [key: string]: any } => {
       let r = group.controls[relationType];
       let m = group.controls[memo];
-      if (r.value.map(e=>e.itemName).includes("其他") && m.value.trim() === '' ){
+      if (r.value.map(e=>e.itemName).includes('其他') && m.value.trim() === '' ){
         return {
           checkMemo: true
         };

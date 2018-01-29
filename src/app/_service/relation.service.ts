@@ -36,11 +36,7 @@ export class RelationService {
     });
   }
 
-<<<<<<< HEAD
-  deleteRelation( id: string) {
-=======
   deleteRelation(id: string) {
->>>>>>> 479e4886d9a4ee45b0b0541aae12346cf9291864
     return this._http.delete(this.baseUrl + '/' + id);
   }
 

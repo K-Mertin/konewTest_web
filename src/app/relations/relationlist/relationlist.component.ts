@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@ang
 import { AlertifyService } from '../../_service/alertify.service';
 import { RelationService } from '../../_service/relation.service';
 import { Relation } from '../../_model/Relation';
-import { FileUploader } from 'ng2-file-upload';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -16,55 +15,31 @@ export class RelationlistComponent implements OnInit {
   private baseUrl = environment.apiUrl + '/relation';
   relationForm: FormGroup;
   relation: Relation;
-<<<<<<< HEAD
-  uploader: FileUploader;
-  relationlist = ['關係A', '關係B', '關係C', '關係D', '關係E', '關係F', '關係G', '其他'];
-=======
   dropdownList = [];
   dropdownSettings = {};
   filePath: string;
->>>>>>> 479e4886d9a4ee45b0b0541aae12346cf9291864
 
   constructor(private fb: FormBuilder, private alertify: AlertifyService, private relationService: RelationService) { }
 
   ngOnInit() {
     this.createRelationForm();
-<<<<<<< HEAD
-    this.initializeUploader();
-  }
-
-  initializeUploader() {
-    this.uploader = new FileUploader({
-      url: this.baseUrl + '/uploads',
-      headers: [{ name: 'Content-Type', value: 'application/form-data' }],
-      isHTML5: true,
-      removeAfterUpload: true,
-      autoUpload: true,
-    });
-
-    this.uploader.onSuccessItem = (item, response, status, headers) => {
-      if (response) {
-        console.log(status);
-      }
-=======
     this.dropdownList = [
-      { "id": 8, "itemName": "relateionType1" },
-      { "id": 2, "itemName": "relateionType2" },
-      { "id": 3, "itemName": "relateionType3" },
-      { "id": 4, "itemName": "relateionType4" },
-      { "id": 5, "itemName": "relateionType5" },
-      { "id": 6, "itemName": "relateionType6" },
-      { "id": 7, "itemName": "relateionType7" },
-      { "id": 1, "itemName": "其他" },
+      { 'id': 8, 'itemName': 'relateionType1' },
+      { 'id': 2, 'itemName': 'relateionType2' },
+      { 'id': 3, 'itemName': 'relateionType3' },
+      { 'id': 4, 'itemName': 'relateionType4' },
+      { 'id': 5, 'itemName': 'relateionType5' },
+      { 'id': 6, 'itemName': 'relateionType6' },
+      { 'id': 7, 'itemName': 'relateionType7' },
+      { 'id': 1, 'itemName': '其他' },
 
     ];
     this.dropdownSettings = {
       singleSelection: false,
       enableCheckAll: false,
-      text: "請選擇關係種類",
+      text: '請選擇關係種類',
       enableSearchFilter: false,
-      classes: "relationTypeList"
->>>>>>> 479e4886d9a4ee45b0b0541aae12346cf9291864
+      classes: 'relationTypeList'
     };
   }
 
@@ -74,15 +49,6 @@ export class RelationlistComponent implements OnInit {
         name: [''],
         idNumber: [''],
         memo: ['']
-<<<<<<< HEAD
-      }, { validator: this.checkValidate('name', 'idNumber')})]),
-      objects: this.fb.array([this.fb.group({
-        name: [''],
-        idNumber: [''],
-        relationType: ['', Validators.required ],
-        memo: ['']
-      }, { validator: this.checkValidate('name', 'idNumber')})]),
-=======
       }, { validator: this.checkValidate('name', 'idNumber') })]),
       objects: this.fb.array([this.fb.group({
         name: [''],
@@ -90,7 +56,6 @@ export class RelationlistComponent implements OnInit {
         relationType: [[], Validators.required],
         memo: ['']
       }, { validator: Validators.compose([this.checkValidate('name', 'idNumber'), this.checkMemo('relationType', 'memo')]) })]),
->>>>>>> 479e4886d9a4ee45b0b0541aae12346cf9291864
       reason: ['', Validators.required],
       user: ['', Validators.required]
     });
@@ -102,15 +67,9 @@ export class RelationlistComponent implements OnInit {
     control.push(this.fb.group({
       name: [''],
       idNumber: [''],
-<<<<<<< HEAD
-      relationType: ['', Validators.required ],
-      memo: ['']
-    }, {validator: this.checkValidate('name', 'idNumber')}));
-=======
       relationType: [[], Validators.required],
       memo: ['']
     }, { validator: Validators.compose([this.checkValidate('name', 'idNumber'), this.checkMemo('relationType', 'memo')]) }));
->>>>>>> 479e4886d9a4ee45b0b0541aae12346cf9291864
   }
 
   addSubject() {
@@ -120,11 +79,7 @@ export class RelationlistComponent implements OnInit {
       name: [''],
       idNumber: [''],
       memo: ['']
-<<<<<<< HEAD
-    }, {validator: this.checkValidate('name', 'idNumber')}));
-=======
     }, { validator: this.checkValidate('name', 'idNumber') }));
->>>>>>> 479e4886d9a4ee45b0b0541aae12346cf9291864
   }
 
   remove(i: number, target: string) {
@@ -138,15 +93,6 @@ export class RelationlistComponent implements OnInit {
 
     this.relation = Object.assign({}, this.relationForm.value);
 
-<<<<<<< HEAD
-    // this.relationService.addRelation(this.relation).subscribe(request => {
-    //     this.alertify.success('relation created');
-    //     this.clearForm();
-    // }, error => {
-    //     this.alertify.error('failed');
-    // }  );
-    console.log(this.relationForm.value);
-=======
     this.relationService.addRelation(this.relation).subscribe(request => {
       this.alertify.success('relation created');
       this.clearForm()
@@ -154,7 +100,6 @@ export class RelationlistComponent implements OnInit {
       this.alertify.error('failed');
     });
     // console.log(this.relationForm.value);
->>>>>>> 479e4886d9a4ee45b0b0541aae12346cf9291864
   }
 
 
@@ -179,7 +124,7 @@ export class RelationlistComponent implements OnInit {
     return (group: FormGroup): { [key: string]: any } => {
       let r = group.controls[relationType];
       let m = group.controls[memo];
-      if (r.value.map(e => e.itemName).includes("其他") && m.value.trim() === '') {
+      if (r.value.map(e => e.itemName).includes('其他') && m.value.trim() === '') {
         return {
           checkMemo: true
         };
@@ -197,24 +142,21 @@ export class RelationlistComponent implements OnInit {
         let formData: FormData = new FormData();
         formData.append('Document', file);
         this.relationService.uplodaRelation(formData).subscribe(response => {
-          if (response == 'success') {
+          if (response === 'success') {
             this.alertify.success(response);
-          }
-          else {
+          }  else {
             this.alertify.error(response);
           }
         }, error => {
-          this.alertify.error(error)
+          this.alertify.error(error);
         }, () => {
-          event.target.value =""
+          event.target.value = '';
         });
+      } else {
+        this.alertify.error('File size is exceeded');
       }
-      else {
-        this.alertify.error("File size is exceeded");
-      }
-    }
-    else {
-      this.alertify.error("Something went Wrong.");
+    } else {
+      this.alertify.error('Something went Wrong.');
     }
   }
 
