@@ -63,7 +63,8 @@
             <tr>
               <th>關係人/公司統編</th>
               <th>關係人/公司名</th>
-              <th>關係註記</th>
+              <th>關係</th>
+              <th>註記</th>
             </tr>
           </thead>
           <tr *ngFor="let object of relation.objects">
@@ -71,9 +72,11 @@
             <td>{{object.name}}</td>
             <td>
             <div  *ngFor="let r of object.relationType">
-                <label class="label label-primary">{{r.itemName}}</label>
-                <label class="label label-default" *ngIf="r.itemName==='其他'">{{object.memo}}</label> 
+                <label class="label label-primary">{{r}}</label>
+                
             </div>
+          </td>
+          <td>{{object.memo}}
           </td>
           </tr>
         </table>

@@ -19,6 +19,7 @@ export class RelationEditComponent implements OnInit {
 
   dropdownList = [];
   dropdownSettings = {};
+  autoCompleteList = ['relateionType1', 'relateionType2', 'relateionType3'];
 
   constructor(private fb: FormBuilder, private alertify: AlertifyService, private relationService: RelationService) { }
 
@@ -75,6 +76,7 @@ export class RelationEditComponent implements OnInit {
     this.relationForm.controls['subjects'].setValue(this.relationEdit.subjects);
     this.relationForm.controls['objects'].setValue(this.relationEdit.objects);
     this.relationForm.controls['reason'].setValue(this.relationEdit.reason);
+    console.log(this.relationForm.value);
   }
 
   createRelationForm() {
@@ -151,11 +153,12 @@ export class RelationEditComponent implements OnInit {
       }
     }
   }
+
   checkMemo(relationType: string, memo: string) {
     return (group: FormGroup): { [key: string]: any } => {
       let r = group.controls[relationType];
       let m = group.controls[memo];
-      if (r.value.map(e=>e.itemName).includes("其他") && m.value.trim() === '' ){
+      if (r.value.includes("其他") && m.value.trim() === '' ){
         return {
           checkMemo: true
         };
@@ -165,6 +168,18 @@ export class RelationEditComponent implements OnInit {
 }
   saveChange() {
     this.relationEdit= Object.assign({},this.relationEdit, this.relationForm.value);
+
+    this.relationEdit.objects.forEach(object => {
+      object.relationType=object.relationType.map(r=>{
+        if(r.value) 
+          return r.value;
+        else 
+          return r;
+      });
+    });
+
+    // console.log(this.relationEdit);
+
     this.relationService.updateRelation(this.relationEdit).subscribe(() => {
       this.alertify.success('relation updated')
     }, error => {

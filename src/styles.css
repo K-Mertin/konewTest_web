@@ -27,3 +27,6 @@
     outline: none;
     border-bottom-color: blue;
   }
+
+  .ng2-dropdown-menu { z-index: 9999!important; 
+}
