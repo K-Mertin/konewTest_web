@@ -1,7 +1,7 @@
 export interface Party {
     name: string;
     idNumber: string;
-    memo: string;
+    memo: any[];
     relationType: any[];
 }
 

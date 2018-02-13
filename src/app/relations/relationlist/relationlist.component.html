@@ -42,7 +42,9 @@
           <div class="form-group" [formGroupName]="i">
             <input class="input" type="text" placeholder="負責人/公司名" formControlName="name">
             <input class="input" type="text" placeholder="負責人/公司統編" formControlName="idNumber">
-            <input class="input" type="text" placeholder="註記" formControlName="memo">
+            <tag-input formControlName="memo" placeholder='+' secondaryPlaceholder='請輸入註記'>
+            </tag-input>
+
             <div *ngIf="(relationForm.controls['subjects'].controls[i].controls.idNumber.touched||relationForm.controls['subjects'].controls[i].controls.name.touched) && relationForm.controls['subjects'].controls[i].hasError('checkValidate')"
               class="alert alert-danger">
               姓名與統編須擇一輸入
@@ -78,7 +80,7 @@
           <div class="form-group" [formGroupName]="i">
             <input class="input" type="text" placeholder="關係人/公司名" formControlName="name">
             <input class="input" type="text" placeholder="關係人/公司統編" formControlName="idNumber">
-            <input class="input" type="text" placeholder="註記" formControlName="memo">
+           
 
             <!-- <angular2-multiselect [data]="dropdownList" [settings]="dropdownSettings" formControlName="relationType">
             </angular2-multiselect> -->
@@ -86,6 +88,9 @@
             <tag-input formControlName="relationType" placeholder='+' secondaryPlaceholder='請輸入關係'>
               <tag-input-dropdown [showDropdownIfEmpty]="true" [autocompleteItems]="autoCompleteList">
               </tag-input-dropdown>
+            </tag-input>
+
+            <tag-input formControlName="memo" placeholder='+' secondaryPlaceholder='請輸入註記'>
             </tag-input>
 
 

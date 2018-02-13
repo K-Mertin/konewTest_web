@@ -14,7 +14,7 @@ import { RouterModule } from '@angular/router';
 import { appRoutes } from './route';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { AlertifyService } from './_service/alertify.service'
+import { AlertifyService } from './_service/alertify.service';
 import { SpiderResultResolver } from './_resolver/spider-result.resolver';
 import { RequestEditComponent } from './spiders/request-edit/request-edit.component';
 import { RequestCreateComponent } from './spiders/request-create/request-create.component';
@@ -26,7 +26,6 @@ import { RelationEditComponent } from './relations/relation-edit/relation-edit.c
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
-
 
 @NgModule({
   declarations: [
@@ -41,7 +40,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
     RelationlistComponent,
     RelationqueryComponent,
     RelationEditComponent
-],
+  ],
   imports: [
     BrowserModule,
     HttpModule,
@@ -52,7 +51,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
     PaginationModule.forRoot(),
     ButtonsModule.forRoot(),
     AngularMultiSelectModule,
-    TagInputModule, 
+    TagInputModule,
     BrowserAnimationsModule
   ],
   providers: [
@@ -64,4 +63,4 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

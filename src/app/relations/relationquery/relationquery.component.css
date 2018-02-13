@@ -29,3 +29,20 @@ select#soflow-color {
   white-space: nowrap;
   width: 10em;
 }
+
+
+#css_table {
+  display:table;
+}
+.css_tr {
+  display: table-row;
+}
+.css_td {
+  display: table-cell;
+}
+
+.label {
+  white-space: inherit;
+  font-size: 100%;
+  display: inline-grid;
+}

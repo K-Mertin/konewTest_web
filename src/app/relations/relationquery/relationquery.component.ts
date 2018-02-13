@@ -37,7 +37,7 @@ export class RelationqueryComponent implements OnInit {
     private relationService: RelationService,
     private alertify: AlertifyService,
     private element: ElementRef
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.theBoundCallback = this.search.bind(this);
@@ -48,8 +48,14 @@ export class RelationqueryComponent implements OnInit {
     this.subscription = [this.filterEnterEvent(), this.filterKeyupEvent()];
   }
 
-  search() {
-    this.relationService.search(this.queryKey, this.queryType).subscribe(relations => this.relations = relations);
+  search(key?: string, type?: string) {
+    if (key) {
+      this.queryKey = key;
+      this.queryType = type;
+    }
+    this.relationService
+      .search(this.queryKey, this.queryType)
+      .subscribe(relations => (this.relations = relations));
     console.log(this.relations);
   }
 
@@ -71,23 +77,28 @@ export class RelationqueryComponent implements OnInit {
 
   deleteRelation(id: string) {
     if (confirm('確定要刪除?(刪除後將無法取回資料)')) {
-      this.relationService.deleteRelation(id).subscribe(r => {
-        this.alertify.success('relation deleted');
-      }, error => {
-        this.alertify.error('Failed');
-      }, () => {
-        this.search();
-      });
+      this.relationService.deleteRelation(id).subscribe(
+        r => {
+          this.alertify.success('relation deleted');
+        },
+        error => {
+          this.alertify.error('Failed');
+        },
+        () => {
+          this.search();
+        }
+      );
     }
   }
 
   // this.service.removeRquest()
 
   filterKeyupEvent() {
-    return Observable.fromEvent(this.input.nativeElement, 'keyup').filter(
-      e => e['target'].value === ''
-    )
-      .subscribe(() => { this.list = []; });
+    return Observable.fromEvent(this.input.nativeElement, 'keyup')
+      .filter(e => e['target'].value === '')
+      .subscribe(() => {
+        this.list = [];
+      });
   }
 
   suggestSelected(key: string) {

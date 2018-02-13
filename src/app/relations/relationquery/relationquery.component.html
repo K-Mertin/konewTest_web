@@ -8,8 +8,8 @@
     </select>
 
     <div class="autocomplete col-md-3">
-      <input placeholder="請輸入查詢關鍵字" list="suggest-list" class="input" type="search" id="search" autocomplete="off" [(ngModel)]="queryKey" name="queryKey"
-        #input>
+      <input placeholder="請輸入查詢關鍵字" list="suggest-list" class="input" type="search" id="search" autocomplete="off" [(ngModel)]="queryKey"
+        name="queryKey" #input>
       <datalist id="suggest-list" class="suggest" #selected>
         <option *ngFor="let i of list">{{i}}</option>
       </datalist>
@@ -34,50 +34,61 @@
       <div class="col-md-6">
         <table class="table table-striped ">
           <thead>
+            <th>
+              借款人:
+            </th>
             <tr>
-              <th>
-                借款人:
-              </th>
-            </tr>
-            <tr>
-              <th>負責人/公司統編</th>
-              <th>負責人/公司名</th>
+              <th>統編</th>
+              <th>姓名</th>
               <th>註記</th>
             </tr>
           </thead>
           <tr *ngFor="let subject of relation.subjects">
-            <td>{{subject.idNumber}} </td>
-            <td>{{subject.name}}</td>
-            <td> {{subject.memo}}</td>
+            <td> <a class="btn btn-info" (click)="search(subject.idNumber, 'idNumber')">{{subject.idNumber}}</a></td>
+            <td> <a class="btn btn-info" (click)="search(subject.name, 'name')">{{subject.name}}</a></td>
+            <td>
+              <ul>
+                <li *ngFor="let m of subject.memo">
+                  {{m}}
+                </li>
+              </ul>
+            </td>
           </tr>
         </table>
       </div>
       <div class="col-md-6">
         <table class="table table-striped ">
           <thead>
+            <th>
+              關係人:
+            </th>
             <tr>
-              <th>
-                關係人:
-              </th>
-            </tr>
-            <tr>
-              <th>關係人/公司統編</th>
-              <th>關係人/公司名</th>
+              <th>統編</th>
+              <th>姓名</th>
               <th>關係</th>
               <th>註記</th>
             </tr>
           </thead>
           <tr *ngFor="let object of relation.objects">
-            <td>{{object.idNumber}} </td>
-            <td>{{object.name}}</td>
             <td>
-            <div  *ngFor="let r of object.relationType">
-                <label class="label label-primary">{{r}}</label>
-                
-            </div>
-          </td>
-          <td>{{object.memo}}
-          </td>
+              <a class="btn btn-info" (click)="search(object.idNumber, 'idNumber')">{{object.idNumber}}</a>
+            </td>
+            <td><a class="btn btn-info" (click)="search(object.name, 'name')">{{object.name}}</a>
+            </td>
+            <td>
+              <ul>
+                <li *ngFor="let r of object.relationType">
+                  {{r}}
+                </li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li *ngFor="let m of object.memo">
+                  {{m}}
+                </li>
+              </ul>
+            </td>
           </tr>
         </table>
       </div>
