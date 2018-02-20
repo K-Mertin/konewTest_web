@@ -97,14 +97,14 @@
         <label>建檔人員: </label>{{relation.createUser}}
       </div>
       <div class="col-md-3">
-        <label>建檔日期: </label>{{relation.createDate}}
+        <label>建檔日期: </label>{{relation.createDate| date: 'yyyy/MM/dd hh:mm:ss'}}
       </div>
 
       <div class="col-md-3">
         <label>最後修改人員: </label>{{relation.modifyUser}}
       </div>
       <div class="col-md-3">
-        <label>最後修改日期: </label>{{relation.modifyDate}}
+        <label>最後修改日期: </label>{{relation.modifyDate| date: 'yyyy/MM/dd hh:mm:ss'}}
       </div>
     </div>
   </div>

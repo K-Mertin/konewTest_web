@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { PaginationModule, ButtonsModule } from 'ngx-bootstrap';
+import { PaginationModule, ButtonsModule, BsDatepickerModule } from 'ngx-bootstrap';
 
 import { AppComponent } from './app.component';
 import { DemoServiceService } from './_service/demoService.service';
@@ -23,9 +23,12 @@ import { RelationlistComponent } from './relations/relationlist/relationlist.com
 import { RelationService } from './_service/relation.service';
 import { RelationqueryComponent } from './relations/relationquery/relationquery.component';
 import { RelationEditComponent } from './relations/relation-edit/relation-edit.component';
-import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
+import { LoancasesComponent } from './loancases/loancases.component';
+import { LoancaseEditComponent } from './loancases/loancase-edit/loancase-edit.component';
+import { CommonService } from './_service/common.service';
+
 
 @NgModule({
   declarations: [
@@ -39,8 +42,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
     RequestCreateComponent,
     RelationlistComponent,
     RelationqueryComponent,
-    RelationEditComponent
-  ],
+    RelationEditComponent,
+    LoancasesComponent,
+    LoancaseEditComponent
+],
   imports: [
     BrowserModule,
     HttpModule,
@@ -50,16 +55,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
     HttpClientModule,
     PaginationModule.forRoot(),
     ButtonsModule.forRoot(),
-    AngularMultiSelectModule,
     TagInputModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    BsDatepickerModule.forRoot()
   ],
   providers: [
     DemoServiceService,
     AlertifyService,
     SpiderResultResolver,
     SpiderHistoryResolver,
-    RelationService
+    RelationService,
+    CommonService
   ],
   bootstrap: [AppComponent]
 })

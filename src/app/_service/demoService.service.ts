@@ -15,7 +15,7 @@ export class DemoServiceService {
   private demoRequest = '/assets/demoRequestData.json';
   constructor(private _http: HttpClient) { }
 
-  private baseUrl = environment.apiUrl;
+  private baseUrl = environment.apiUrl+'/requests';
 
   getDemo(): Observable<DemoModel[]> {
     return this._http
@@ -57,25 +57,25 @@ export class DemoServiceService {
       params = params.append('pageSize', pageSize);
     }
 
-    return this._http.get<SpiderRequest[]>(this.baseUrl + '/requests', { params });
+    return this._http.get<SpiderRequest[]>(this.baseUrl + '/list', { params });
   }
 
   addRequests(requests: SpiderRequest) {
-    return this._http.post(this.baseUrl + '/requests', requests, {
+    return this._http.post(this.baseUrl + '/add', requests, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
     });
   }
 
   updateReqest(requests: SpiderRequest) {
-    return this._http.put(this.baseUrl + '/requests', requests, {
+    return this._http.put(this.baseUrl + '/update', requests, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
     });
   }
 
   removeRquest(requests: SpiderRequest) {
-    return this._http.put(this.baseUrl + '/requests/delete', requests, {
+    return this._http.put(this.baseUrl + '/delete', requests, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
     });

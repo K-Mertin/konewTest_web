@@ -1,0 +1,76 @@
+<div class="container">
+  <div class="col-md-9">
+    <form class="form-inline">
+      <select name="queryType" id="soflow" [(ngModel)]="queryType" class="selectpicker col-md-3" #query>
+        <option value="idNumber">統編</option>
+        <option value="name">姓名</option>
+      </select>
+      <div class="autocomplete col-md-3">
+        <input placeholder="請輸入查詢關鍵字" list="suggest-list" class="input" type="search" id="search" autocomplete="off" [(ngModel)]="queryKey"
+          name="queryKey" #input>
+        <datalist id="suggest-list" class="suggest" #selected>
+          <option *ngFor="let i of list">{{i}}</option>
+        </datalist>
+      </div>
+
+      <div class="col-md-3">
+        <button class="btn btn-primary" style="margin: 20px" (click)="search()">查詢</button>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-3">
+    <button class="btn btn-primary" data-toggle="modal" style="margin: 20px" data-target="#loancaseEditModal" (click)="resetEditLoancase()">新增</button>
+  </div>
+
+
+  <table class="table table-striped ">
+    <thead>
+      <tr>
+        <th colspan='10' class="text-center">
+          <h4>案件清單</h4>
+        </th>
+      </tr>
+      <tr>
+        <th>統編</th>
+        <th>申請人</th>
+        <th>貸款狀態</th>
+        <th>連絡人</th>
+        <th>申請日</th>
+        <th>業務人員</th>
+        <th>拜訪日期</th>
+        <th>回覆日期</th>
+        <th>票信查詢</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let loancase of loancases">
+        <td>
+          {{loancase.idNumber}}
+        </td>
+        <td>{{loancase.name}}</td>
+        <td>{{loancase.status}}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>
+          <a href="#" class="btn btn-success" data-toggle="modal" data-target="#loancaseEditModal" (click)="setEditLoancase(loancase)">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          </a>
+          <a class="btn btn-danger">
+            <i class="fa fa-trash-o" aria-hidden="true"></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Modal -->
+  <div class="modal fade col-md-12" id="loancaseEditModal" tabindex="-1" role="dialog" aria-labelledby="loancaseEditModalLabel"
+    aria-hidden="true">
+    <app-loancase-edit [loancaseEdit]="loancaseEdit" [search]="theBoundCallback"></app-loancase-edit>
+  </div>
+</div>

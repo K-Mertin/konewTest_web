@@ -13,7 +13,7 @@ import { environment } from '../../environments/environment';
 export class RelationService {
   constructor(private _http: HttpClient) { }
 
-  private baseUrl = environment.apiUrl + '/relation';
+  private baseUrl = environment.apiUrl + '/relations';
 
   getAutoComplete(key: string, type: string): Observable<string[]> {
     return this._http
@@ -27,7 +27,7 @@ export class RelationService {
 
   addRelation(relation: Relation) {
     console.log(relation)
-    return this._http.post(this.baseUrl, relation, {
+    return this._http.post(this.baseUrl+'/add', relation, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/form-data')
     });
@@ -38,7 +38,7 @@ export class RelationService {
   }
 
   updateRelation(relation: Relation) {
-    return this._http.put(this.baseUrl, relation, {
+    return this._http.put(this.baseUrl+'/update', relation, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
     });

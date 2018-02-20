@@ -1,22 +1,10 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  OnChanges,
-  ViewChild,
-  ElementRef
-} from '@angular/core';
-import {
-  FormGroup,
-  FormBuilder,
-  FormControl,
-  Validators,
-  FormArray
-} from '@angular/forms';
+import {  Component,  OnInit,  Input,  OnChanges,  ViewChild,  ElementRef} from '@angular/core';
+import {  FormGroup,  FormBuilder,  FormControl,  Validators,  FormArray} from '@angular/forms';
 import { AlertifyService } from '../../_service/alertify.service';
 import { RelationService } from '../../_service/relation.service';
 import { Relation } from '../../_model/Relation';
-import { RELATIONTYPE } from '../../_data/RelationType';
+import { CommonService } from '../../_service/common.service';
+
 
 @Component({
   selector: 'app-relation-edit',
@@ -30,16 +18,18 @@ export class RelationEditComponent implements OnInit {
   relationForm: FormGroup;
   relation: Relation;
 
-  autoCompleteList = RELATIONTYPE;
+  autoCompleteList;
 
   constructor(
     private fb: FormBuilder,
     private alertify: AlertifyService,
-    private relationService: RelationService
+    private relationService: RelationService,
+    private commonService: CommonService
   ) {}
 
   ngOnInit() {
     this.createRelationForm();
+    this.commonService.getRelationType().subscribe(r => this.autoCompleteList = r);
   }
 
   // tslint:disable-next-line:use-life-cycle-interface
