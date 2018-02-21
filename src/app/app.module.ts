@@ -28,7 +28,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 import { LoancasesComponent } from './loancases/loancases.component';
 import { LoancaseEditComponent } from './loancases/loancase-edit/loancase-edit.component';
 import { CommonService } from './_service/common.service';
-
+import { LoancaseService } from './_service/loancase.service';
+import { LoancaseResolver } from './_resolver/loancase.resolver';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,9 @@ import { CommonService } from './_service/common.service';
     SpiderResultResolver,
     SpiderHistoryResolver,
     RelationService,
-    CommonService
+    CommonService,
+    LoancaseService,
+    LoancaseResolver
   ],
   bootstrap: [AppComponent]
 })

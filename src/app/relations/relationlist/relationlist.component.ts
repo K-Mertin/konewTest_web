@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {  FormGroup,  FormBuilder,  FormControl,  Validators,  FormArray} from '@angular/forms';
+import {
+  FormGroup,
+  FormBuilder,
+  FormControl,
+  Validators,
+  FormArray
+} from '@angular/forms';
 import { AlertifyService } from '../../_service/alertify.service';
 import { RelationService } from '../../_service/relation.service';
 import { Relation } from '../../_model/Relation';
@@ -28,7 +34,9 @@ export class RelationlistComponent implements OnInit {
 
   ngOnInit() {
     this.createRelationForm();
-    this.commonService.getRelationType().subscribe(r => this.autoCompleteList = r);
+    this.commonService
+      .getRelationType()
+      .subscribe(r => (this.autoCompleteList = r));
   }
 
   createRelationForm() {
@@ -98,7 +106,7 @@ export class RelationlistComponent implements OnInit {
 
   addRelation() {
     this.relation = Object.assign({}, this.relationForm.value);
-    console.log(this.relation); 
+    console.log(this.relation);
     this.relation.objects.forEach(object => {
       object.relationType = object.relationType.map(r => r.value);
       object.memo = object.memo.map(r => r.value);

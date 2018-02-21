@@ -1,32 +1,39 @@
 <div class="container">
-  <div class="col-md-9">
-    <form class="form-inline">
-      <select name="queryType" id="soflow" [(ngModel)]="queryType" class="selectpicker col-md-3" #query>
-        <option value="idNumber">統編</option>
-        <option value="name">姓名</option>
-      </select>
-      <div class="autocomplete col-md-3">
-        <input placeholder="請輸入查詢關鍵字" list="suggest-list" class="input" type="search" id="search" autocomplete="off" [(ngModel)]="queryKey"
-          name="queryKey" #input>
-        <datalist id="suggest-list" class="suggest" #selected>
-          <option *ngFor="let i of list">{{i}}</option>
-        </datalist>
-      </div>
+  <form class="form-inline">
+    <select name="queryType" id="soflow" [(ngModel)]="queryType" class="selectpicker" #query>
+      <option value="idNumber">統編</option>
+      <option value="name">申請人</option>
+    </select>
+    <div class="autocomplete">
+      <input placeholder="請輸入查詢關鍵字" list="suggest-list" class="input" type="search" id="search" autocomplete="off" [(ngModel)]="queryKey"
+        name="queryKey" #input>
+      <datalist id="suggest-list" class="suggest" #selected>
+        <option *ngFor="let i of keylist">{{i}}</option>
+      </datalist>
+    </div>
 
-      <div class="col-md-3">
-        <button class="btn btn-primary" style="margin: 20px" (click)="search()">查詢</button>
-      </div>
-    </form>
-  </div>
-  <div class="col-md-3">
-    <button class="btn btn-primary" data-toggle="modal" style="margin: 20px" data-target="#loancaseEditModal" (click)="resetEditLoancase()">新增</button>
-  </div>
+    <button class="btn btn-primary" style="margin: 20px" (click)="search()">查詢</button>
+    <button class="btn btn-primary btn-md" data-toggle="modal" data-target="#loancaseEditModal" (click)="resetEditLoancase()">新增案件</button>
+  </form>
 
+
+  <div class="row">
+    <label for="rowCount">每頁顯示: </label>
+    <select style="width: 130px" id="rowCount" [(ngModel)]="pagination.pageSize" (change)="search()">
+      <option *ngFor="let row of rowList" [value]="row.value">
+        {{row.display}}
+      </option>
+    </select>
+
+    <label>，總共: </label>
+    {{pagination.totalCount}}
+    <label>筆資料 </label>
+  </div>
 
   <table class="table table-striped ">
     <thead>
       <tr>
-        <th colspan='10' class="text-center">
+        <th colspan='14' class="text-center">
           <h4>案件清單</h4>
         </th>
       </tr>
@@ -40,22 +47,28 @@
         <th>拜訪日期</th>
         <th>回覆日期</th>
         <th>票信查詢</th>
+        <th>建檔日期</th>
+        <th>建檔人員</th>
+        <th>最後修改日期</th>
+        <th>最後修改人員</th>
         <th>操作</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let loancase of loancases">
-        <td>
-          {{loancase.idNumber}}
-        </td>
+        <td>{{loancase.idNumber}}</td>
         <td>{{loancase.name}}</td>
         <td>{{loancase.status}}</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>{{loancase.contactor}}</td>
+        <td>{{loancase.applyDate|date:'yyyy-MM-dd'}}</td>
+        <td>{{loancase.sales}}</td>
+        <td>{{loancase.salesVisitDate|date:'yyyy-MM-dd'}}</td>
+        <td>{{loancase.lastReplyDate|date:'yyyy-MM-dd'}}</td>
+        <td>{{loancase.ticketCredit}}</td>
+        <td>{{loancase.createDate|date:'yyyy-MM-dd hh:mm'}}</td>
+        <td>{{loancase.createUser}}</td>
+        <td>{{loancase.modifyDate|date:'yyyy-MM-dd hh:mm'}}</td>
+        <td>{{loancase.modifyUser}}</td>
         <td>
           <a href="#" class="btn btn-success" data-toggle="modal" data-target="#loancaseEditModal" (click)="setEditLoancase(loancase)">
             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
@@ -73,4 +86,10 @@
     aria-hidden="true">
     <app-loancase-edit [loancaseEdit]="loancaseEdit" [search]="theBoundCallback"></app-loancase-edit>
   </div>
+</div>
+
+<div class="text-center">
+  <pagination [boundaryLinks]="true" [totalItems]="pagination.totalCount" [itemsPerPage]="pagination.pageSize" [(ngModel)]="pagination.pageNumber"
+    class="pagination-sm" (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+    lastText="&raquo;"></pagination>
 </div>

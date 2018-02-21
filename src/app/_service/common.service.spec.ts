@@ -10,7 +10,10 @@ describe('Service: Common', () => {
     });
   });
 
-  it('should ...', inject([CommonService], (service: CommonService) => {
-    expect(service).toBeTruthy();
-  }));
+  it(
+    'should ...',
+    inject([CommonService], (service: CommonService) => {
+      expect(service).toBeTruthy();
+    })
+  );
 });
