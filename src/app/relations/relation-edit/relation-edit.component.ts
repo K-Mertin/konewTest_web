@@ -1,5 +1,5 @@
-import {  Component,  OnInit,  Input,  OnChanges,  ViewChild,  ElementRef} from '@angular/core';
-import {  FormGroup,  FormBuilder,  FormControl,  Validators,  FormArray} from '@angular/forms';
+import { Component, OnInit, Input, OnChanges, ViewChild, ElementRef } from '@angular/core';
+import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
 import { AlertifyService } from '../../_service/alertify.service';
 import { RelationService } from '../../_service/relation.service';
 import { Relation } from '../../_model/Relation';
@@ -25,7 +25,7 @@ export class RelationEditComponent implements OnInit {
     private alertify: AlertifyService,
     private relationService: RelationService,
     private commonService: CommonService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.createRelationForm();
@@ -197,6 +197,28 @@ export class RelationEditComponent implements OnInit {
       }
     };
   }
+
+  delete() {
+    const id = this.relationEdit._id;
+    const user = this.relationForm.controls['user'].value;
+
+    if (confirm("確定要刪除?")) {
+      this.relationService.deleteRelation(id, user).subscribe(
+        () => {
+          this.alertify.success('relation deleted');
+        },
+        error => {
+          console.log(error);
+        },
+        () => {
+          this.search();
+          this.closeTag.nativeElement.click();
+        }
+      );
+    }
+
+  }
+
   saveChange() {
     this.relationEdit = Object.assign(
       {},

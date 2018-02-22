@@ -30,6 +30,7 @@ export class RelationqueryComponent implements OnInit {
   queryKey = '';
   subscription: Subscription[];
   relationEdit: Relation;
+  relationHist;
 
   public theBoundCallback: Function;
 
@@ -75,22 +76,6 @@ export class RelationqueryComponent implements OnInit {
       });
   }
 
-  deleteRelation(id: string) {
-    if (confirm('確定要刪除?(刪除後將無法取回資料)')) {
-      this.relationService.deleteRelation(id).subscribe(
-        r => {
-          this.alertify.success('relation deleted');
-        },
-        error => {
-          this.alertify.error('Failed');
-        },
-        () => {
-          this.search();
-        }
-      );
-    }
-  }
-
   // this.service.removeRquest()
 
   filterKeyupEvent() {
@@ -109,5 +94,12 @@ export class RelationqueryComponent implements OnInit {
 
   setEditRelation(relation: Relation) {
     this.relationEdit = relation;
+  }
+  getHistRelation(id: string) {
+    this.relationService.getHistRelations(id)
+      .subscribe( data => {
+        this.relationHist = data;
+      }
+      );
   }
 }

@@ -30,8 +30,8 @@ export class RelationService {
     });
   }
 
-  deleteRelation(id: string) {
-    return this._http.delete(this.baseUrl + '/' + id);
+  deleteRelation(id: string, user: string) {
+    return this._http.delete(this.baseUrl + '/' + id + '/' + user);
   }
 
   updateRelation(relation: Relation) {
@@ -52,5 +52,9 @@ export class RelationService {
   private handleError(error: Response) {
     console.error(error);
     return Observable.throw(error || 'Server error');
+  }
+
+  getHistRelations(id: string) {
+    return this._http.get<number>(this.baseUrl + '/log/' + id);
   }
 }
