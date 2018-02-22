@@ -35,11 +35,14 @@ export class LoancaseEditComponent implements OnInit {
   @Input() public search: Function;
   @ViewChild('closeTag') closeTag: ElementRef;
 
+
   newState = true;
 
   loancaseForm: FormGroup;
 
   loanStatusList;
+
+  alertMessage;
 
   public dpConfig: Partial<BsDatepickerConfig> = new BsDatepickerConfig();
 
@@ -60,7 +63,9 @@ export class LoancaseEditComponent implements OnInit {
     this.createLoancaseForm();
     this.commonService
       .getLoanStatus()
-      .subscribe(r => (this.loanStatusList = r));
+      .subscribe(r => {
+        this.loanStatusList = r.list;
+      });
   }
 
   // tslint:disable-next-line:use-life-cycle-interface
@@ -80,8 +85,14 @@ export class LoancaseEditComponent implements OnInit {
     this.loancaseForm = this.fb.group({
       idNumber: [
         '',
-        [Validators.required, Validators.minLength(8)], this.validateidNumberNotTaken.bind(this)],
-      name: ['', Validators.required, this.validatenameNotTaken.bind(this)],
+        [Validators.required, Validators.minLength(8)],
+        // this.validateidNumberTaken.bind(this)
+      ],
+      name: [
+        '',
+        Validators.required,
+         // this.validatenameTaken.bind(this)
+        ],
       status: ['new', Validators.required],
       applyDate: [null, Validators.required],
       contactor: ['', Validators.required],
@@ -161,15 +172,52 @@ export class LoancaseEditComponent implements OnInit {
     );
   }
 
-  validateidNumberNotTaken(control: AbstractControl) {
+  delete() {
+    console.log(this.loancaseForm.value);
+
+    this.loancaseEdit = Object.assign(
+      {},
+      this.loancaseEdit,
+      this.loancaseForm.value
+    );
+    console.log(this.loancaseEdit);
+
+    this.service.deleteLoancase(this.loancaseEdit).subscribe(
+      () => {
+        this.alertify.success('loancase deleted');
+      },
+      error => {
+        console.log(error.error);
+      },
+      () => {
+        this.search();
+        this.closeTag.nativeElement.click();
+      }
+    );
+  }
+
+  validateidNumberTaken(control: AbstractControl) {
     return this.service.checkDuplicate(control.value, 'idNumber').map(res => {
-      return res > 0 ? { idNumberNotTaken: true } : null  ;
+      return res > 0 ? { idNumberTaken: true } : null;
     });
   }
 
-  validatenameNotTaken(control: AbstractControl) {
+  validatenameTaken(control: AbstractControl) {
     return this.service.checkDuplicate(control.value, 'name').map(res => {
-      return res > 0 ?  { nameNotTaken: true } : null ;
+      return res > 0 ? { nameTaken: true } : null;
     });
+  }
+
+  checkDuplicate(evnet) {
+    const value = event.target['value'];
+    const name = event.target['name'];
+
+    if ( event.target['value'].length > 0) {
+      this.service
+      .checkDuplicate(value, name)
+      .subscribe(res => {
+        this.alertMessage = res > 0 ? value + ' 已有進行中案件，請進行確認。' : null;
+      });
+    }
   }
 }

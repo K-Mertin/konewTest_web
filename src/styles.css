@@ -14,7 +14,12 @@
   font-size: 2em;
   font-weight: bold;
 }
-
+th {
+  text-align: center;  
+}
+td {
+  text-align: center;  
+}
 .input {
   width: 200px;
   border: none;

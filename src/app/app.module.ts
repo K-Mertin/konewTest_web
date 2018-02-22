@@ -30,6 +30,7 @@ import { LoancaseEditComponent } from './loancases/loancase-edit/loancase-edit.c
 import { CommonService } from './_service/common.service';
 import { LoancaseService } from './_service/loancase.service';
 import { LoancaseResolver } from './_resolver/loancase.resolver';
+import { LoanstatusResolver } from './_resolver/loanStatus.resolver';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { LoancaseResolver } from './_resolver/loancase.resolver';
     RelationService,
     CommonService,
     LoancaseService,
-    LoancaseResolver
+    LoancaseResolver,
+    LoanstatusResolver
   ],
   bootstrap: [AppComponent]
 })

@@ -9,6 +9,7 @@ import { RelationlistComponent } from './relations/relationlist/relationlist.com
 import { RelationqueryComponent } from './relations/relationquery/relationquery.component';
 import { LoancasesComponent } from './loancases/loancases.component';
 import { LoancaseResolver } from './_resolver/loancase.resolver';
+import { LoanstatusResolver } from './_resolver/loanStatus.resolver';
 
 export const appRoutes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -19,7 +20,7 @@ export const appRoutes: Routes = [
     { path: 'spider/history', component: SpiderHistoryComponent, resolve: {requests: SpiderHistoryResolver } },
     { path: 'relation', component: RelationlistComponent },
     { path: 'relation/query', component: RelationqueryComponent },
-    { path: 'loancase' , component: LoancasesComponent, resolve: {loancases: LoancaseResolver }},
+    { path: 'loancase' , component: LoancasesComponent, resolve: {loancases: LoancaseResolver, loanstatus: LoanstatusResolver }},
     // {
     //     path: '',
     //     runGuardsAndResolvers: 'always',

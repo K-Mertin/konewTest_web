@@ -59,11 +59,21 @@ export class LoancaseService {
     });
   }
 
+  deleteLoancase(loancase: LoanCase) {
+    return this._http.put(this.baseUrl + '/delete', loancase, {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+
   getAutoComplete(key: string, type: string): Observable<string[]> {
     return this._http.get<string[]>(this.baseUrl + '/key/' + type + '/' + key);
   }
 
   checkDuplicate(key: string, type: string): Observable<number> {
     return this._http.get<number>(this.baseUrl + '/check/' + type + '/' + key);
+  }
+
+  getHistLoancase(id: string) {
+    return this._http.get<number>(this.baseUrl + '/log/' + id);
   }
 }

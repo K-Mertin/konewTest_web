@@ -19,12 +19,14 @@ export class LoancasesComponent implements OnInit {
   queryType: string;
   queryKey: string;
   loancaseEdit: LoanCase;
+  loancaseHist;
 
   pagination: Pagination;
   userParams: any = {};
   rowList;
   keylist = [];
   subscription: Subscription[];
+  loanStatusMap;
 
   public theBoundCallback: Function;
 
@@ -41,6 +43,7 @@ export class LoancasesComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.loancases = data['loancases']['data'];
       this.pagination = data['loancases']['pagination'];
+      this.loanStatusMap = data['loanstatus'].map;
     });
 
     this.theBoundCallback = this.search.bind(this);
@@ -93,6 +96,14 @@ export class LoancasesComponent implements OnInit {
   }
   resetEditLoancase() {
     this.loancaseEdit = null;
+  }
+
+  getHistLoancase(id) {
+    this.service.getHistLoancase(id)
+      .subscribe( data => {
+        this.loancaseHist = data;
+      }
+      );
   }
 
   pageChanged(event: any): void {

@@ -58,7 +58,7 @@
       <tr *ngFor="let loancase of loancases">
         <td>{{loancase.idNumber}}</td>
         <td>{{loancase.name}}</td>
-        <td>{{loancase.status}}</td>
+        <td>{{loanStatusMap[loancase.status]}}</td>
         <td>{{loancase.contactor}}</td>
         <td>{{loancase.applyDate|date:'yyyy-MM-dd'}}</td>
         <td>{{loancase.sales}}</td>
@@ -73,8 +73,8 @@
           <a href="#" class="btn btn-success" data-toggle="modal" data-target="#loancaseEditModal" (click)="setEditLoancase(loancase)">
             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
           </a>
-          <a class="btn btn-danger">
-            <i class="fa fa-trash-o" aria-hidden="true"></i>
+          <a class="btn btn-warning" data-toggle="modal" data-target="#loancaseHisModal" (click)="getHistLoancase(loancase._id)">
+            <i class="fa fa-history" aria-hidden="true"></i>
           </a>
         </td>
       </tr>
@@ -85,6 +85,51 @@
   <div class="modal fade col-md-12" id="loancaseEditModal" tabindex="-1" role="dialog" aria-labelledby="loancaseEditModalLabel"
     aria-hidden="true">
     <app-loancase-edit [loancaseEdit]="loancaseEdit" [search]="theBoundCallback"></app-loancase-edit>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade col-md-12" id="loancaseHisModal" tabindex="-1" role="dialog" aria-labelledby="loancaseHisModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content col-md-12">
+        <div class="modal-body">
+          <table class="table table-striped ">
+            <thead>
+              <tr>
+                <th>異動</th>
+                <th>統編</th>
+                <th>申請人</th>
+                <th>貸款狀態</th>
+                <th>連絡人</th>
+                <th>申請日</th>
+                <th>業務人員</th>
+                <th>拜訪日期</th>
+                <th>回覆日期</th>
+                <th>票信查詢</th>
+                <th>修改日期</th>
+                <th>修改人員</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let his of loancaseHist">
+                <td>{{his.action}}</td>
+                <td>{{his.idNumber}}</td>
+                <td>{{his.name}}</td>
+                <td>{{loanStatusMap[his.status]}}</td>
+                <td>{{his.contactor}}</td>
+                <td>{{his.applyDate|date:'yyyy-MM-dd'}}</td>
+                <td>{{his.sales}}</td>
+                <td>{{his.salesVisitDate|date:'yyyy-MM-dd'}}</td>
+                <td>{{his.lastReplyDate|date:'yyyy-MM-dd'}}</td>
+                <td>{{his.ticketCredit}}</td>
+                <td>{{his.modifyDate|date:'yyyy-MM-dd hh:mm'}}</td>
+                <td>{{his.modifyUser}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 

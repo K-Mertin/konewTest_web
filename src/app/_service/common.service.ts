@@ -6,7 +6,9 @@ export class CommonService {
   constructor(private http: Http) {}
 
   getLoanStatus() {
-    return this.http.request('./assets/loanStatus.json').map(res => res.json());
+    return this.http
+      .request('./assets/loanStatus.json')
+      .map(res => res.json());
   }
 
   getRelationType() {
