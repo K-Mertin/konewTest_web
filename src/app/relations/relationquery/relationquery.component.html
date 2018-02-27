@@ -21,6 +21,7 @@
   <div class="col-md-12">
     <div *ngFor="let relation of relations">
       <div class="col-md-6">
+        <label class="label label-danger" *ngIf="relation.status=='deleted'">{{relation.status}}</label>
         <label>登錄原因: </label>{{relation.reason}}
       </div>
       <div class="col-md-6">
