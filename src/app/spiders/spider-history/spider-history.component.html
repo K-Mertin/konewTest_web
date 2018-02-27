@@ -12,7 +12,6 @@
     <label>筆資料 </label>
     <button class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#requestCreateModal">建立新需求</button>
   </div>
-
   <!-- Table -->
   <table class="table table-striped ">
     <thead>
@@ -34,7 +33,7 @@
       <td>
         {{request.requestId}}
       </td>
-      <td>{{request.status}}</td>
+      <td>{{statusMap[request.status]}}</td>
       <td>{{request.createDate|date:'yyyy-MM-dd HH:mm:ss'}}</td>
       <!-- <td>{{request.requestType}}</td> -->
       <td>{{request.searchKeys}}</td>

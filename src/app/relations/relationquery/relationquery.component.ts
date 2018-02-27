@@ -14,6 +14,7 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/debounceTime';
 import { AlertifyService } from '../../_service/alertify.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-relationquery',
@@ -31,16 +32,22 @@ export class RelationqueryComponent implements OnInit {
   subscription: Subscription[];
   relationEdit: Relation;
   relationHist;
+  statusMap;
 
   public theBoundCallback: Function;
 
   constructor(
     private relationService: RelationService,
     private alertify: AlertifyService,
-    private element: ElementRef
+    private element: ElementRef,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
+    this.route.data.subscribe(data => {
+      this.statusMap = data['status'].map;
+    });
+
     this.theBoundCallback = this.search.bind(this);
   }
 

@@ -22,4 +22,16 @@ export class CommonService {
       .request('./assets/rowList.json')
       .map(res => res.json());
   }
+
+  getStatusList() {
+    return this.http
+      .request('./assets/status.json')
+      .map(res => res.json());
+  }
+
+  getRequestType() {
+    return this.http
+      .request('./assets/requestType.json')
+      .map(res => res.json());
+  }
 }
