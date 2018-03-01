@@ -144,6 +144,23 @@ export class RelationlistComponent implements OnInit {
     };
   }
 
+  checkDuplicate(event) {
+    console.log('check');
+    const value = event.target['value'];
+    const name = event.target['name'];
+
+    if ( event.target['value'].trim().length > 0) {
+      this.relationService
+      .checkDuplicate(value)
+      .subscribe(res => {
+        if ( res > 0 ) {
+          this.alertify.error( value + ' 已建檔，請使用修改功能。');
+          event.target['value'] = '';
+        }
+      });
+    }
+  }
+
   fileChange(event) {
     const fileList: FileList = event.target.files;
     if (fileList.length > 0) {

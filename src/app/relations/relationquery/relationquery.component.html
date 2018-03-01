@@ -16,6 +16,9 @@
     </div>
     <div class="col-md-3">
       <button class="btn btn-primary" style="margin: 20px" (click)="search()">查詢</button>
+      <button *ngIf="queryType =='idNumber'" style="margin: 20px" class="btn btn-success" data-toggle="modal" data-target="#networkModal" (click)="setNetworkIdNumver(queryKey)">
+        關聯圖
+      </button>
     </div>
   </form>
   <div class="col-md-12">
@@ -25,6 +28,7 @@
         <label>登錄原因: </label>{{relation.reason}}
       </div>
       <div class="col-md-6">
+
         <a class="btn btn-warning pull-right" data-toggle="modal" data-target="#relationHistModal" (click)="getHistRelation(relation._id)">
           <i class="fa fa-history" aria-hidden="true">歷程</i>
         </a>
@@ -115,11 +119,17 @@
     </div>
   </div>
 
+
   <!-- Modal -->
   <div class="modal fade col-md-12" id="relationEditModal" tabindex="-1" role="dialog" aria-labelledby="relationEditModalLabel"
     aria-hidden="true">
     <!-- <app-relation-edit [relationEdit]="relationEdit" [loadRelation]="theBoundCallback"></app-relation-edit> -->
     <app-relation-edit [relationEdit]="relationEdit" [search]="theBoundCallback"></app-relation-edit>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade col-md-12" id="networkModal" tabindex="-1" role="dialog" aria-labelledby="networkModalLabel" aria-hidden="true">
+    <app-network-graphic [networkIdNumber]="networkIdNumber"></app-network-graphic>
   </div>
 
   <!-- Modal -->

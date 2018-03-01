@@ -32,6 +32,9 @@ import { LoancaseService } from './_service/loancase.service';
 import { LoancaseResolver } from './_resolver/loancase.resolver';
 import { LoanstatusResolver } from './_resolver/loanStatus.resolver';
 import { StatusResolver } from './_resolver/status.resolver';
+import { NetworkGraphicComponent } from './relations/network-graphic/network-graphic.component';
+
+import { NvD3Module } from 'ng2-nvd3';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,8 @@ import { StatusResolver } from './_resolver/status.resolver';
     RelationqueryComponent,
     RelationEditComponent,
     LoancasesComponent,
-    LoancaseEditComponent
+    LoancaseEditComponent,
+    NetworkGraphicComponent
 ],
   imports: [
     BrowserModule,
@@ -60,7 +64,8 @@ import { StatusResolver } from './_resolver/status.resolver';
     ButtonsModule.forRoot(),
     TagInputModule,
     BrowserAnimationsModule,
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    NvD3Module
   ],
   providers: [
     DemoServiceService,

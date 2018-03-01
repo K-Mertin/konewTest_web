@@ -212,7 +212,7 @@ export class LoancaseEditComponent implements OnInit {
     const value = event.target['value'];
     const name = event.target['name'];
 
-    if ( event.target['value'].length > 0) {
+    if ( event.target['value'].trim().length > 0) {
       this.service
       .checkDuplicate(value, name)
       .subscribe(res => {

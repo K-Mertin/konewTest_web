@@ -57,4 +57,12 @@ export class RelationService {
   getHistRelations(id: string) {
     return this._http.get<number>(this.baseUrl + '/log/' + id);
   }
+
+  getNetwork(id: string) {
+    return this._http.get(this.baseUrl + '/network/' + id);
+  }
+
+  checkDuplicate(id: string) {
+    return this._http.get<number>(this.baseUrl + '/check/' + id);
+  }
 }

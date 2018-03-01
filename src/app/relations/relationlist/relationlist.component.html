@@ -27,11 +27,11 @@
 
     <div formArrayName="subjects">
       <div class="col-md-12">
-        <div class="margin-20 pull-right">
+        <!-- <div class="margin-20 pull-right">
           <button (click)="addSubject()" class='btn btn-primary'>
             <i class="fa fa-plus fa-1" aria-hidden="true">添加借款人</i>
           </button>
-        </div>
+        </div> -->
       </div>
       <div class="col-md-12">
         <div *ngFor="let subject of relationForm.controls['subjects'].controls; let i=index">
@@ -41,7 +41,7 @@
           </button>
           <div class="form-group" [formGroupName]="i">
             <input class="input" type="text" placeholder="*負責人/公司名" formControlName="name">
-            <input class="input" type="text" placeholder="*負責人/公司統編" formControlName="idNumber">
+            <input class="input" type="text" placeholder="*負責人/公司統編" formControlName="idNumber"  (blur)="checkDuplicate($event)">
             <tag-input formControlName="memo" placeholder='+' secondaryPlaceholder='請輸入註記'>
             </tag-input>
 
