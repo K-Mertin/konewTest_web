@@ -151,7 +151,7 @@ export class RelationlistComponent implements OnInit {
 
     if ( event.target['value'].trim().length > 0) {
       this.relationService
-      .checkDuplicate(value)
+      .checkDuplicate('subjects', value)
       .subscribe(res => {
         if ( res > 0 ) {
           this.alertify.error( value + ' 已建檔，請使用修改功能。');

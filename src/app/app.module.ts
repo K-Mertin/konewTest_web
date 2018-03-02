@@ -35,6 +35,17 @@ import { StatusResolver } from './_resolver/status.resolver';
 import { NetworkGraphicComponent } from './relations/network-graphic/network-graphic.component';
 
 import { NvD3Module } from 'ng2-nvd3';
+import { AuthService } from './_service/auth.service';
+
+import { JwtModule } from '@auth0/angular-jwt';
+
+
+export function getAccessToken() { return localStorage.getItem('token'); }
+export const jwtConfig = {
+  tokenGetter: getAccessToken,
+  whitelistedDomains: ['localhost:5000']
+};
+
 
 @NgModule({
   declarations: [
@@ -65,7 +76,10 @@ import { NvD3Module } from 'ng2-nvd3';
     TagInputModule,
     BrowserAnimationsModule,
     BsDatepickerModule.forRoot(),
-    NvD3Module
+    NvD3Module,
+    JwtModule.forRoot({
+      config: jwtConfig
+    })
   ],
   providers: [
     DemoServiceService,
@@ -77,7 +91,8 @@ import { NvD3Module } from 'ng2-nvd3';
     LoancaseService,
     LoancaseResolver,
     LoanstatusResolver,
-    StatusResolver
+    StatusResolver,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

@@ -62,7 +62,7 @@ export class RelationService {
     return this._http.get(this.baseUrl + '/network/' + id);
   }
 
-  checkDuplicate(id: string) {
-    return this._http.get<number>(this.baseUrl + '/check/' + id);
+  checkDuplicate(target: string, id: string) {
+    return this._http.get<number>(this.baseUrl + '/check/' + target + '/' + id);
   }
 }

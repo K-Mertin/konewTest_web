@@ -27,29 +27,34 @@
               <a [routerLink]="['relation/query']">查詢</a>
             </li>
           </ul>
-        </li> 
+        </li>
         <li>
           <a [routerLink]="['loancase']">申貸案件</a>
         </li>
-        </ul>
-        <!-- <ul class="nav navbar-nav">
-          <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">LawBank <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a [routerLink]="['spider/request']">New Request</a></li> -->
-        <!-- <li><a [routerLink]="['spider/result']">Result Query</a></li> -->
-        <!-- <li><a [routerLink]="['spider/history']">History Request</a></li>
-              </ul>
-        </ul> -->
-        <!-- <ul class="nav navbar-nav">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">RiskControl <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a [routerLink]="['risk/create']">Create</a></li>
-                  <li><a [routerLink]="['risk/query']">Query</a></li>
-                  <li><a [routerLink]="['risk/report']">Report</a></li>
-                </ul>
-          </ul>  -->
+      </ul>
+      <form  class="navbar-form navbar-right" #loginFrom="ngForm" >
+        <div class="form-group">
+          <input type="text" placeholder="Email" class="form-control" required name="username" >
+        </div>
+        <div class="form-group">
+          <input type="password" placeholder="Password" class="form-control" required name="password">
+        </div>
+        <button type="submit" [disabled]="!loginFrom.valid" class="btn btn-success" (click)="login()">Sign in</button>
+      </form>
+
+      <!-- <ul *ngIf="loggedIn()" class="nav navbar-nav navbar-right">
+        <li>
+          <img src="{{photoUrl}}" alt="">
+        </li>
+        <li class="dropdown" dropdown>
+          <a (click)="false" class="dropdown-toggle" dropdownToggle>welcome {{authService.decodeToken?.unique_name | titlecase}} <span class="caret"></span></a>
+          <ul class="dropdown-menu" *dropdownMenu>
+            <li><a [routerLink]="['/member/edit']"><i class="fa fa-user"></i>Edit Profile</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a (click)="logout()"><i class="fa fa-sign-out"></i> Logout</a></li>
+          </ul>
+        </li>
+      </ul> -->
     </div>
     <!--/.navbar-collapse -->
   </div>

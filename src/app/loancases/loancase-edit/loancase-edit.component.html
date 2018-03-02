@@ -1,7 +1,10 @@
 <div class="modal-dialog modal-lg" role="document">
   <div class="modal-content col-md-12">
     <div class="modal-header">
-      <span class="modal-title" id="loancaseEditModal">申貸案件編輯</span>
+      <span class="modal-title" id="loancaseEditModal">
+          <span *ngIf="newState">申貸案件新增</span>
+          <span *ngIf="!newState">申貸案件編輯</span>
+      </span>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -87,8 +90,11 @@
         </div>
       </form>
     </div>
-    <div *ngIf="alertMessage && newState" class="col-sm-12 alert alert-danger">
-      {{alertMessage}}
+    <div *ngIf="duplicateMessage && newState" class="col-sm-12 alert alert-danger">
+      {{duplicateMessage}}
+    </div>
+    <div *ngIf="relationMessage && newState" class="col-sm-12 alert alert-danger">
+      {{relationMessage}}
     </div>
     <div *ngIf="loancaseForm.controls['idNumber'].touched && loancaseForm.controls['idNumber'].invalid" class="col-sm-12 alert alert-danger">
       統編為必要欄位，且須大於8碼
