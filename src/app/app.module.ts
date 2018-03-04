@@ -38,6 +38,8 @@ import { NvD3Module } from 'ng2-nvd3';
 import { AuthService } from './_service/auth.service';
 
 import { JwtModule } from '@auth0/angular-jwt';
+import { AuthGuard } from './_guard/auth.guard';
+import { SettingComponent } from './setting/setting.component';
 
 
 export function getAccessToken() { return localStorage.getItem('token'); }
@@ -62,7 +64,8 @@ export const jwtConfig = {
     RelationEditComponent,
     LoancasesComponent,
     LoancaseEditComponent,
-    NetworkGraphicComponent
+    NetworkGraphicComponent,
+    SettingComponent
 ],
   imports: [
     BrowserModule,
@@ -84,6 +87,7 @@ export const jwtConfig = {
   providers: [
     DemoServiceService,
     AlertifyService,
+    AuthGuard,
     SpiderResultResolver,
     SpiderHistoryResolver,
     RelationService,

@@ -12,6 +12,7 @@ import { Relation } from '../../_model/Relation';
 import { environment } from '../../../environments/environment';
 import { RELATIONTYPE } from '../../_data/RelationType';
 import { CommonService } from '../../_service/common.service';
+import { AuthService } from '../../_service/auth.service';
 
 @Component({
   selector: 'app-relationlist',
@@ -29,7 +30,8 @@ export class RelationlistComponent implements OnInit {
     private fb: FormBuilder,
     private alertify: AlertifyService,
     private relationService: RelationService,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -63,7 +65,7 @@ export class RelationlistComponent implements OnInit {
         )
       ]),
       reason: ['', Validators.required],
-      user: ['', Validators.required]
+      user: [{value: this.authService.currentUser, disabled: true}, Validators.required]
     });
   }
 
@@ -105,7 +107,7 @@ export class RelationlistComponent implements OnInit {
   }
 
   addRelation() {
-    this.relation = Object.assign({}, this.relationForm.value);
+    this.relation = Object.assign({}, this.relationForm.getRawValue());
     console.log(this.relation);
     this.relation.objects.forEach(object => {
       object.relationType = object.relationType.map(r => r.value);

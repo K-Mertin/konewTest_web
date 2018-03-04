@@ -16,44 +16,46 @@ export class AuthService {
   baseUrl = environment.apiUrl;
   userToken: any;
   decodeToken: any;
-  currentUser: User;
+  currentUser: string;
+  currentRole: string;
 
   constructor(
     private http: HttpClient,
     private jwtHelpService: JwtHelperService
-  ) {}
+  ) { }
 
-  login() {
+  login(model) {
+    this.logout();
     const headers = new HttpHeaders().set(
-      'Authorization', 'Basic ' + btoa('jack' + ':' + 'password'));
+      'Authorization', 'Basic ' + btoa(model.username + ':' + model.password));
 
-    console.log( 'Basic ' + btoa('jack' + ':' + 'password'));
     return (
       this.http
-        .post<AuthUser>(this.baseUrl + '/user/login', {
-            headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+        .get<AuthUser>(this.baseUrl + '/user/login', {
+          headers
         })
-        // .map((response: Response) => {
-        //   const user = response.json();
         .map(user => {
           console.log(user);
-          //   if (user) {
-          //     localStorage.setItem('token', user.tokenString);
-          //     localStorage.setItem('username', user.username);
-          //     localStorage.setItem('role', user.role);
+          if (user) {
+            localStorage.setItem('token', user.token);
+            localStorage.setItem('username', user.username);
+            localStorage.setItem('role', user.role);
 
-          //     this.decodeToken = this.jwtHelpService.decodeToken(
-          //       user.tokenString
-          //     );
-          //     this.userToken = user.tokenString;
-          //   }
+            this.decodeToken = this.jwtHelpService.decodeToken(
+              user.token
+            );
+            this.currentRole = user.role;
+            this.currentUser = user.username;
+            this.userToken = user.token;
+            console.log(this.currentRole, this.currentUser, this.decodeToken, this.userToken)
+
+          }
         })
         .catch(this.handlerError)
     );
   }
 
   loggedIn() {
-    // return tokenNotExpired('token');
     const token = this.jwtHelpService.tokenGetter();
 
     if (!token) {
@@ -64,13 +66,15 @@ export class AuthService {
   }
 
   private handlerError(error: any) {
+
     const applicationError = error.headers.get('Application-Error');
     if (applicationError) {
       return Observable.throw(applicationError);
     }
 
-    const serverError = error.json();
+    const serverError = error.error;
     let modelStateErrors = '';
+
     if (serverError) {
       for (const key in serverError) {
         if (serverError[key]) {
@@ -78,6 +82,58 @@ export class AuthService {
         }
       }
     }
+
     return Observable.throw(modelStateErrors || 'Server error');
+  }
+
+  logout() {
+    this.userToken = null;
+    this.currentUser = null;
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('role');
+  }
+
+  changePwd(model) {
+    console.log(this.userToken)
+    return (
+      this.http
+        .put(this.baseUrl + '/user/pwd', model, {
+          headers: new HttpHeaders().set('x-access-token', this.userToken)
+        })
+        .catch(this.handlerError)
+    );
+  }
+
+  register(model) {
+    console.log(model)
+    return (
+      this.http.post(this.baseUrl + '/user/register', model)
+        .catch(this.handlerError)
+    );
+  }
+
+  getSystemSetting() {
+    return this.http.get(this.baseUrl + '/setting/systemSetting').catch(this.handlerError);
+  }
+
+  getSetting(settingName) {
+    return this.http.get(this.baseUrl + '/setting/' +settingName).catch(this.handlerError);
+  }
+
+  getSettingList() {
+    return this.http.get(this.baseUrl + '/setting/list').catch(this.handlerError);
+  }
+
+  updateSetting(settingName, key, value) {
+    const model = {
+      'settingName':settingName,
+        'key':key,
+        'value':value
+    }
+    return this.http.put(this.baseUrl + '/setting/update', model, {
+      headers: new HttpHeaders().set('x-access-token', this.userToken)
+    })
+    .catch(this.handlerError)
   }
 }

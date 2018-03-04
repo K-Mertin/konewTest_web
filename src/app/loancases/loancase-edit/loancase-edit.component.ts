@@ -25,6 +25,7 @@ import { LoancaseService } from '../../_service/loancase.service';
 import { AlertifyService } from '../../_service/alertify.service';
 import { Observable } from 'rxjs/Observable';
 import { RelationService } from '../../_service/relation.service';
+import { AuthService } from '../../_service/auth.service';
 
 @Component({
   selector: 'app-loancase-edit',
@@ -55,7 +56,8 @@ export class LoancaseEditComponent implements OnInit {
     private _localeService: BsLocaleService,
     private service: LoancaseService,
     private alertify: AlertifyService,
-    private relationService: RelationService
+    private relationService: RelationService,
+    private authService: AuthService
   ) {
     defineLocale('zh_cn', zhCn);
     this.dpConfig.containerClass = 'theme-blue';
@@ -104,7 +106,7 @@ export class LoancaseEditComponent implements OnInit {
       ticketCredit: [''],
       salesVisitDate: [null],
       lastReplyDate: [null],
-      user: ['', Validators.required]
+      user: [{value: this.authService.currentUser, disabled: true}, Validators.required]
     });
   }
 
@@ -132,9 +134,9 @@ export class LoancaseEditComponent implements OnInit {
   }
 
   addLoancase() {
-    console.log(this.loancaseForm.value);
+    console.log(this.loancaseForm.getRawValue());
 
-    const loancase = Object.assign({}, this.loancaseForm.value);
+    const loancase = Object.assign({}, this.loancaseForm.getRawValue());
 
     this.service.addLoancase(loancase).subscribe(
       () => {
@@ -153,12 +155,12 @@ export class LoancaseEditComponent implements OnInit {
   }
 
   saveChange() {
-    console.log(this.loancaseForm.value);
+    console.log(this.loancaseForm.getRawValue());
 
     this.loancaseEdit = Object.assign(
       {},
       this.loancaseEdit,
-      this.loancaseForm.value
+      this.loancaseForm.getRawValue()
     );
     console.log(this.loancaseEdit);
 
@@ -177,12 +179,12 @@ export class LoancaseEditComponent implements OnInit {
   }
 
   delete() {
-    console.log(this.loancaseForm.value);
+    console.log(this.loancaseForm.getRawValue());
 
     this.loancaseEdit = Object.assign(
       {},
       this.loancaseEdit,
-      this.loancaseForm.value
+      this.loancaseForm.getRawValue()
     );
     console.log(this.loancaseEdit);
 

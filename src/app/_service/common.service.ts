@@ -34,4 +34,10 @@ export class CommonService {
       .request('./assets/requestType.json')
       .map(res => res.json());
   }
+
+  getRoleList() {
+    return this.http
+      .request('./assets/roleList.json')
+      .map(res => res.json())
+  }
 }

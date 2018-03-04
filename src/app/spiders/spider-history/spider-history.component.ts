@@ -5,6 +5,7 @@ import { AlertifyService } from '../../_service/alertify.service';
 import { Pagination } from '../../_model/pagination';
 import { ActivatedRoute } from '@angular/router';
 import { CommonService } from '../../_service/common.service';
+import { AuthService } from '../../_service/auth.service';
 
 @Component({
   selector: 'app-spider-history',
@@ -25,7 +26,8 @@ export class SpiderHistoryComponent implements OnInit {
     private service: DemoServiceService,
     private route: ActivatedRoute,
     private alertify: AlertifyService,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {

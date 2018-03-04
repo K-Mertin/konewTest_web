@@ -60,12 +60,15 @@ export class RelationqueryComponent implements OnInit {
   search(key?: string, type?: string) {
     if (key) {
       this.queryKey = key;
-      this.queryType = type;
-
-      this.relationService
-        .search(this.queryKey, this.queryType)
-        .subscribe(relations => (this.relations = relations));
     }
+    if (type) {
+      this.queryType = type;
+    }
+
+    this.relationService
+      .search(this.queryKey, this.queryType)
+      .subscribe(relations => (this.relations = relations));
+  
     // console.log(this.relations);
   }
 

@@ -1,7 +1,7 @@
 import { User } from './User';
 
 export interface AuthUser {
-    tokenString: string;
+    token: string;
     id: number;
     username: string;
     role: string;
