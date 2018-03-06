@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_service/auth.service';
 import { AlertifyService } from '../_service/alertify.service';
 import { Router } from '@angular/router';
+import { CommonService } from '../_service/common.service';
 
 @Component({
   selector: 'app-nav',
@@ -11,20 +12,34 @@ import { Router } from '@angular/router';
 export class NavComponent implements OnInit {
   model: any = {};
   pwdModel: any = {};
-  
-  constructor(private authService: AuthService, private alertify: AlertifyService, private router: Router) {}
+  roleMap = [];
 
-  ngOnInit() {}
+  constructor(
+    private authService: AuthService,
+    private alertify: AlertifyService,
+    private router: Router,
+    private commonService: CommonService
+  ) {}
+
+  ngOnInit() {
+    this.commonService.getRoleList().subscribe(x => {
+      this.roleMap = x.map;
+    });
+  }
 
   login() {
     console.log('asdf');
-    this.authService.login(this.model).subscribe(x => {
-      this.alertify.success('logged in successfully');
-    }, error => {
-      this.alertify.error(error);
-    }, () => {
-      this.router.navigate(['/home']);
-    });
+    this.authService.login(this.model).subscribe(
+      x => {
+        this.alertify.success('logged in successfully');
+      },
+      error => {
+        this.alertify.error(error);
+      },
+      () => {
+        this.router.navigate(['/home']);
+      }
+    );
   }
 
   loggedIn() {
@@ -42,15 +57,17 @@ export class NavComponent implements OnInit {
   }
 
   changePwd() {
-    this.authService.changePwd(this.pwdModel).subscribe(x => {
-      this.alertify.success('change successfully');
-    }, error => {
-      if (error) {
-        this.alertify.error(error);
-      } else {
-        this.alertify.error('failed');
+    this.authService.changePwd(this.pwdModel).subscribe(
+      x => {
+        this.alertify.success('change successfully');
+      },
+      error => {
+        if (error) {
+          this.alertify.error(error);
+        } else {
+          this.alertify.error('failed');
+        }
       }
-    });
+    );
   }
-
 }

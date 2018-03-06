@@ -47,7 +47,7 @@ export class RelationlistComponent implements OnInit {
         this.fb.group(
           {
             name: [''],
-            idNumber: [''],
+            idNumber: ['', Validators.minLength(8)],
             memo: [[]]
           },
           { validator: this.checkValidate('name', 'idNumber') }
@@ -57,7 +57,7 @@ export class RelationlistComponent implements OnInit {
         this.fb.group(
           {
             name: [''],
-            idNumber: [''],
+            idNumber: ['', Validators.minLength(8)],
             relationType: [[], Validators.required],
             memo: [[]]
           },
@@ -76,7 +76,7 @@ export class RelationlistComponent implements OnInit {
       this.fb.group(
         {
           name: [''],
-          idNumber: [''],
+          idNumber: ['', Validators.minLength(8)],
           relationType: [[], Validators.required],
           memo: [[]]
         },
@@ -92,7 +92,7 @@ export class RelationlistComponent implements OnInit {
       this.fb.group(
         {
           name: [''],
-          idNumber: [''],
+          idNumber: ['', Validators.minLength(8)],
           memo: [[]]
         },
         { validator: this.checkValidate('name', 'idNumber') }

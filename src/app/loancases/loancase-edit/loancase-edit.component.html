@@ -14,10 +14,10 @@
         <div class="form-group">
           <div class="col-sm-6">
             <div class="col-sm-4">
-              <label>*統編：</label>
+              <label>*ID：</label>
             </div>
             <div class="col-sm-8">
-              <input class="input" type="text" placeholder="統編" formControlName="idNumber" name='idNumber' (blur)="checkDuplicate($event)">
+              <input class="input" type="text" placeholder="ID" formControlName="idNumber" name='idNumber' (blur)="checkDuplicate($event)">
             </div>
             <div class="col-sm-4">
               <label>*申請人：</label>
@@ -97,7 +97,7 @@
       {{relationMessage}}
     </div>
     <div *ngIf="loancaseForm.controls['idNumber'].touched && loancaseForm.controls['idNumber'].invalid" class="col-sm-12 alert alert-danger">
-      統編為必要欄位，且須大於8碼
+      ID為必要欄位，且須大於8碼
     </div>
     <div *ngIf="loancaseForm.controls['name'].touched && loancaseForm.controls['name'].invalid" class="col-sm-12 alert alert-danger">
       申請人為必要欄位

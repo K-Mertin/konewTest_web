@@ -56,10 +56,10 @@ export class NetworkGraphicComponent implements OnInit {
         charge: -1000,
         tooltip: {
           contentGenerator: function(d) {
-            let content = '<div><label>姓名：<label>' + d['name'] + '</div>';
-            content += '<div><label>統編：<label>' + d['idNumber'] + '</div>';
+            let content = '<div><label>名稱：<label>' + d['name'] + '</div>';
+            content += '<div><label>ID：<label>' + d['idNumber'] + '</div>';
             content += '<div><label>原因：<label>' + d['reason'] + '</div>';
-            content += '<div><label>註記：<label></div>';
+            content += '<div><label>備註：<label></div>';
             d['memo'].forEach(element => {
               content += '<div>' + element + '</div>';
             });

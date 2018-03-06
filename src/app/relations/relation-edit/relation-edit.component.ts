@@ -50,7 +50,7 @@ export class RelationEditComponent implements OnInit {
         this.fb.group(
           {
             name: [''],
-            idNumber: [''],
+            idNumber: ['', Validators.minLength(8)],
             memo: [[]]
           },
           { validator: this.checkValidate('name', 'idNumber') }
@@ -63,7 +63,7 @@ export class RelationEditComponent implements OnInit {
         this.fb.group(
           {
             name: [''],
-            idNumber: [''],
+            idNumber: ['', Validators.minLength(8)],
             relationType: [[], Validators.required],
             memo: [[]]
           },
@@ -89,7 +89,7 @@ export class RelationEditComponent implements OnInit {
         this.fb.group(
           {
             name: [''],
-            idNumber: [''],
+            idNumber: ['', Validators.minLength(8)],
             memo: [[]]
           },
           { validator: this.checkValidate('name', 'idNumber') }
@@ -99,7 +99,7 @@ export class RelationEditComponent implements OnInit {
         this.fb.group(
           {
             name: [''],
-            idNumber: [''],
+            idNumber: ['', Validators.minLength(8)],
             relationType: [[], Validators.required],
             memo: [[]]
           },
@@ -123,7 +123,7 @@ export class RelationEditComponent implements OnInit {
       this.fb.group(
         {
           name: [''],
-          idNumber: [''],
+          idNumber: ['', Validators.minLength(8)],
           relationType: [[], Validators.required],
           memo: [[]]
         },
@@ -144,7 +144,7 @@ export class RelationEditComponent implements OnInit {
       this.fb.group(
         {
           name: [''],
-          idNumber: [''],
+          idNumber: ['', Validators.minLength(8)],
           memo: [[]]
         },
         { validator: this.checkValidate('name', 'idNumber') }
@@ -265,7 +265,7 @@ export class RelationEditComponent implements OnInit {
       });
     });
 
-    // console.log(this.relationEdit);
+    this.relationEdit.status = 'lived';
 
     this.relationService.updateRelation(this.relationEdit).subscribe(
       () => {
