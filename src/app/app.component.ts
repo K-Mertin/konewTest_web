@@ -13,7 +13,10 @@ import { AuthService } from './_service/auth.service';
 export class AppComponent {
   title = 'konew';
 
-  constructor(private authService: AuthService, private jwtHelperService: JwtHelperService) { 
+  constructor(
+    private authService: AuthService,
+    private jwtHelperService: JwtHelperService
+  ) {
     console.log(environment.production);
     console.log(environment.apiUrl);
   }
@@ -24,7 +27,7 @@ export class AppComponent {
     const role = localStorage.getItem('role');
     if (token) {
       this.authService.decodeToken = this.jwtHelperService.decodeToken(token);
-      this.authService.userToken = token
+      this.authService.userToken = token;
     }
     if (user) {
       this.authService.currentUser = user;

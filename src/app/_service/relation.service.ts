@@ -42,7 +42,7 @@ export class RelationService {
 
   uplodaRelation(formData: FormData) {
     return this._http
-      .post('http://localhost:5000/api/relation/upload', formData)
+      .post(this.baseUrl + '/upload', formData)
       .map((response: Response) => {
         return response;
       })

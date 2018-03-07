@@ -25,6 +25,7 @@ export class RelationlistComponent implements OnInit {
   relation: Relation;
   filePath: string;
   autoCompleteList;
+  loading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -170,7 +171,9 @@ export class RelationlistComponent implements OnInit {
       const fileSize: number = fileList[0].size;
       if (fileSize <= 10485760) {
         const formData: FormData = new FormData();
-        formData.append('Document', file);
+        formData.append('Document', file, file.name);
+        formData.append('user', this.authService.currentUser);
+        this.loading = true;
         this.relationService.uplodaRelation(formData).subscribe(
           response => {
             if (response === 'success') {
@@ -183,11 +186,12 @@ export class RelationlistComponent implements OnInit {
             this.alertify.error(error);
           },
           () => {
+            this.loading = false;
             event.target.value = '';
           }
         );
       } else {
-        this.alertify.error('File size is exceeded');
+        this.alertify.error('檔案超過10MB');
       }
     } else {
       this.alertify.error('Something went Wrong.');

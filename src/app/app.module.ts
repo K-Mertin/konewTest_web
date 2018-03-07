@@ -41,6 +41,9 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { AuthGuard } from './_guard/auth.guard';
 import { SettingComponent } from './setting/setting.component';
 
+import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
+// this includes the core NgIdleModule but includes keepalive providers for easy wireup
+import { MomentModule } from 'angular2-moment'; // optional, provides moment-style pipes for date formatting
 
 export function getAccessToken() { return localStorage.getItem('token'); }
 export const jwtConfig = {
@@ -64,7 +67,8 @@ export const jwtConfig = {
     RelationEditComponent,
     LoancasesComponent,
     LoancaseEditComponent,
-    NetworkGraphicComponent,
+    NetworkGraphicComponent
+,
     SettingComponent
 ],
   imports: [
@@ -82,7 +86,9 @@ export const jwtConfig = {
     NvD3Module,
     JwtModule.forRoot({
       config: jwtConfig
-    })
+    }),
+    MomentModule,
+    NgIdleKeepaliveModule.forRoot()
   ],
   providers: [
     DemoServiceService,

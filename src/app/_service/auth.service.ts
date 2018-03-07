@@ -36,7 +36,7 @@ export class AuthService {
         headers
       })
       .map(user => {
-        console.log(user);
+        // console.log(user);
         if (user) {
           localStorage.setItem('token', user.token);
           localStorage.setItem('username', user.username);
@@ -46,12 +46,12 @@ export class AuthService {
           this.currentRole = user.role;
           this.currentUser = user.username;
           this.userToken = user.token;
-          console.log(
-            this.currentRole,
-            this.currentUser,
-            this.decodeToken,
-            this.userToken
-          );
+          // console.log(
+          //   this.currentRole,
+          //   this.currentUser,
+          //   this.decodeToken,
+          //   this.userToken
+          // );
         }
       })
       .catch(this.handlerError);
@@ -96,7 +96,7 @@ export class AuthService {
   }
 
   changePwd(model) {
-    console.log(this.userToken);
+    // console.log(this.userToken);
     return this.http
       .put(this.baseUrl + '/user/pwd', model, {
         headers: new HttpHeaders().set('x-access-token', this.userToken)
@@ -105,7 +105,7 @@ export class AuthService {
   }
 
   register(model) {
-    console.log(model);
+    // console.log(model);
     return this.http
       .post(this.baseUrl + '/user/register', model)
       .catch(this.handlerError);

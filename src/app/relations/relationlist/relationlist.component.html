@@ -2,11 +2,12 @@
   <div class="text-center">
     <h3>關係人資料建檔</h3>
   </div>
-  <!-- <div class="float-label-control pull-right">
+  <div class="float-label-control pull-right">
     <div class="btn btn-sm btn-default">匯入檔案
       <input class="uploadfile-style" (change)="fileChange($event)" name="filePath" type="file">
     </div>
-  </div> -->
+  </div>
+  <div class="text-center"><h3 *ngIf="loading" style="color:red">上傳中...</h3></div>
   <form [formGroup]="relationForm">
     <div class="form-group">
       <div class="col-sm-6">

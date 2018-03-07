@@ -37,7 +37,6 @@ export class LoancaseEditComponent implements OnInit {
   @Input() public search: Function;
   @ViewChild('closeTag') closeTag: ElementRef;
 
-
   newState = true;
 
   loancaseForm: FormGroup;
@@ -67,11 +66,9 @@ export class LoancaseEditComponent implements OnInit {
 
   ngOnInit() {
     this.createLoancaseForm();
-    this.commonService
-      .getLoanStatus()
-      .subscribe(r => {
-        this.loanStatusList = r.list;
-      });
+    this.commonService.getLoanStatus().subscribe(r => {
+      this.loanStatusList = r.list;
+    });
   }
 
   // tslint:disable-next-line:use-life-cycle-interface
@@ -91,22 +88,28 @@ export class LoancaseEditComponent implements OnInit {
     this.loancaseForm = this.fb.group({
       idNumber: [
         '',
-        [Validators.required, Validators.minLength(8)],
+        [Validators.required, Validators.minLength(8)]
         // this.validateidNumberTaken.bind(this)
       ],
       name: [
         '',
-        Validators.required,
-         // this.validatenameTaken.bind(this)
-        ],
+        Validators.required
+        // this.validatenameTaken.bind(this)
+      ],
       status: ['new', Validators.required],
       applyDate: [null, Validators.required],
       contactor: ['', Validators.required],
-      sales: ['', Validators.required],
+      sales: [
+        { value: this.authService.currentUser, disabled: true },
+        Validators.required
+      ],
       ticketCredit: [''],
       salesVisitDate: [null],
       lastReplyDate: [null],
-      user: [{value: this.authService.currentUser, disabled: true}, Validators.required]
+      user: [
+        { value: this.authService.currentUser, disabled: true },
+        Validators.required
+      ]
     });
   }
 
@@ -218,18 +221,32 @@ export class LoancaseEditComponent implements OnInit {
     const value = event.target['value'];
     const name = event.target['name'];
 
-    if ( event.target['value'].trim().length > 0) {
-      this.service
-      .checkDuplicate(value, name)
-      .subscribe(res => {
-        this.duplicateMessage = res > 0 ?  value + ' 已有進行中案件，請進行確認。' : null ;
+    if (event.target['value'].trim().length > 0) {
+      this.service.checkDuplicate(value, name).subscribe(res => {
+        this.duplicateMessage =
+          res > 0 ? value + ' 已有進行中案件，請進行確認。' : null;
       });
 
-      this.relationService
-        .getAutoComplete(value, name)
-        .subscribe(res => {
-          this.relationMessage = res.length > 0 ? value + ' 存在於關係人資料中，請進行確認。' : null ;
-        });
+      this.relationService.search(value, name).subscribe(res => {
+        let message = '';
+        if (res.length > 0) {
+          res.forEach(element => {
+            message +=   element.subjects[0].name + '因 "' + element.reason + '" 被登錄於關係人資料中。';
+            if (element.subjects[0].idNumber !== value) {
+              message += value + '為其關係人，關係為';
+              element.objects.forEach(object => {
+                if (object.idNumber === value) {
+                  object.relationType.forEach(relation => {
+                    message += '"' + relation + '"';
+                  });
+                }
+              });
+            }
+          });
+        }
+        this.relationMessage =
+          res.length > 0 ? message : null;
+      });
     }
   }
 }
